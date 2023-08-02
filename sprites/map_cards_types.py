@@ -1,12 +1,12 @@
 import pygame
 
 from sprites.base_map_card import BaseMapCard
-from vars import screen_width, screen_height
+from vars import screen_rect_size
 
 
 class GenericMapCard(BaseMapCard):
-    width = screen_width / 12
-    height = screen_height / 6
+    width = screen_rect_size / 13
+    height = screen_rect_size / 6
 
     def __init__(self, x, y, **kwargs):
         super().__init__(x, y, **kwargs)
@@ -19,20 +19,20 @@ class GenericMapCard(BaseMapCard):
 
 
 class CornerMapCard(BaseMapCard):
-    width = screen_width / 6
-    height = screen_height / 6
+    width = screen_rect_size / 13 * 2
+    height = screen_rect_size / 6
 
     def __init__(self, x, y, **kwargs):
         super().__init__(x, y, **kwargs, )
-        self.width, self.height = (screen_width / 6, screen_height / 6)
+        self.width, self.height = (screen_rect_size / 6, screen_rect_size / 6)
 
     def add_additional_data(self):
         self.image_load(0)
 
 
 class SideImageMapCard(BaseMapCard):
-    width = screen_width / 12
-    height = screen_height / 6
+    width = screen_rect_size / 13
+    height = screen_rect_size / 6
 
     def __init__(self, x, y, **kwargs):
         super().__init__(x, y, **kwargs)

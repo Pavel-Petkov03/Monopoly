@@ -1,12 +1,12 @@
 import pygame
-from vars import screen
+from vars import screen, screen_rect_size
 
 
 class BaseMapCard(pygame.sprite.Sprite):
     width = 0
     height = 0
 
-    def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None):
+    def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None):
         super().__init__()
         self.image = None
         self.x = x
@@ -15,6 +15,7 @@ class BaseMapCard(pygame.sprite.Sprite):
         self.caption = caption
         self.color = color
         self.price = price
+        self.rotation = rotation
 
     def set_rect(self):
         self.image = pygame.Surface((self.width, self.height))
@@ -49,7 +50,8 @@ class BaseMapCard(pygame.sprite.Sprite):
 
     def blit(self):
         self.set_rect()
-        rect = self.image.get_rect()
+        rotated_image = pygame.transform.rotate(self.image, self.rotation)
+        rect = rotated_image.get_rect()
         rect.x = self.x
         rect.y = self.y
-        screen.blit(self.image, rect)
+        screen.blit(rotated_image, rect)

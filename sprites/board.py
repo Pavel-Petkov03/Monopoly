@@ -1,6 +1,6 @@
-from sprites.map_cards_types import CornerMapCard, GenericMapCard, SideImageMapCard, screen_width, screen_height
-from vars import border_data
-
+from sprites.map_cards_types import CornerMapCard, GenericMapCard, SideImageMapCard
+from vars import border_data, screen_rect_size
+from math import floor
 
 class NeighborHood:
     def __init__(self, map_cards):
@@ -15,16 +15,49 @@ class Board:
 
     def initialise_board(self):
         previous_rects_width = 0
-        previous_rects_height = screen_height/6
+        previous_rects_height = screen_rect_size / 6
+        counter = 0
+        rotation_degrees = 0
         direction = "left"
         for entry in border_data:
+            x, y = 0, 0
             rect_type = entry.pop("rect_type")
+            entry["rotation"] = rotation_degrees
             rect_class = self.get_rect_class(rect_type)
-            previous_rects_width += rect_class.width
-            x = screen_width - previous_rects_width
-            y = screen_height - previous_rects_height
+            if direction == "left":
+                previous_rects_width += rect_class.width
+                x = screen_rect_size - previous_rects_width
+                y = screen_rect_size - previous_rects_height
+            elif direction == "up":
+                previous_rects_height += rect_class.width
+                x = 0
+                y = screen_rect_size - previous_rects_height
+            elif direction == "right":
+                previous_rects_width += rect_class.width
+                x = previous_rects_width
+                y = 0
+
             obj = rect_class(x, y, **entry)
             self.board.append(obj)
+
+            if counter == 10:
+                previous_rects_width = screen_rect_size / 6
+                direction, rotation_degrees = self.get_direction(direction)
+                counter = 0
+            counter += 1
+
+    def get_direction(self, direction):
+        ds = {
+            "left": "up",
+            "up": "right",
+            "right": "bottom"
+        }
+        rot = {
+            "left": 270,
+            "up": 180,
+            "right": 90
+        }
+        return ds[direction], rot[direction]
 
     @staticmethod
     def get_rect_class(rect_type):
