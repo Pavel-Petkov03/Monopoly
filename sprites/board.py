@@ -15,7 +15,6 @@ class Board:
 
     def initialise_board(self):
         previous_rects_width = 0
-        previous_rects_height = screen_rect_size / 6
         counter = 0
         rotation_degrees = 0
         direction = "left"
@@ -27,24 +26,29 @@ class Board:
             if direction == "left":
                 previous_rects_width += rect_class.width
                 x = screen_rect_size - previous_rects_width
-                y = screen_rect_size - previous_rects_height
+                y = screen_rect_size - screen_rect_size / 6
             elif direction == "up":
-                previous_rects_height += rect_class.width
-                x = 0
-                y = screen_rect_size - previous_rects_height
-            elif direction == "right":
                 previous_rects_width += rect_class.width
+                x = 0
+                y = screen_rect_size - previous_rects_width
+            elif direction == "right":
                 x = previous_rects_width
                 y = 0
-
+                previous_rects_width += rect_class.width
+            elif direction == "bottom":
+                x = screen_rect_size - rect_class.height
+                y = previous_rects_width
+                previous_rects_width += rect_class.width
             obj = rect_class(x, y, **entry)
             self.board.append(obj)
 
             if counter == 10:
-                previous_rects_width = screen_rect_size / 6
+                previous_rects_width = rect_class.width
                 direction, rotation_degrees = self.get_direction(direction)
                 counter = 0
+
             counter += 1
+
 
     def get_direction(self, direction):
         ds = {

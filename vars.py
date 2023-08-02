@@ -141,6 +141,100 @@ border_data = [
         "price": "120",
         "color": "red",
     },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+    {
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'corner',
+        "inside_image_path": "images/police.png",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
+{
+        "rect_type": 'generic',
+        "caption": "ул Шипка",
+        "price": "120",
+        "color": "red",
+    },
 
 
 
