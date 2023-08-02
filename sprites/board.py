@@ -10,71 +10,32 @@ class NeighborHood:
 class Board:
     def __init__(self):
         self.board = [
-            CornerMapCard(
-                screen_width - screen_width / 6,
-                screen_height - screen_height / 6,
-                "images/parking.png"
-            ),
-            GenericMapCard(
-                screen_width - screen_width / 6 - screen_width / 12,
-                screen_height - screen_height / 6,
-                "brown",
-                "Something",
-                "123"
-            ),
-            SideImageMapCard(
-                screen_width - screen_width / 6 - 2 * screen_width / 12,
-                screen_height - screen_height / 6,
-                "Something",
-                "images/treasure.png",
-                "123"
-            ),
-            GenericMapCard(
-                screen_width - screen_width / 6 - 3 * screen_width / 12,
-                screen_height - screen_height / 6,
-                "brown",
-                "Something",
-                "123"
-            ),
-            SideImageMapCard(
-                screen_width - screen_width / 6 - 4 * screen_width / 12,
-                screen_height - screen_height / 6,
-                "Something",
-                "images/a.jpg",
-                "123"
-            ),
-            GenericMapCard(
-                screen_width - screen_width / 6 - 5 * screen_width / 12,
-                screen_height - screen_height / 6,
-                "blue",
-                "Something",
-                "123"
-            ),
-            SideImageMapCard(
-                screen_width - screen_width / 6 - 4 * screen_width / 12,
-                screen_height - screen_height / 6,
-                "Something",
-                "images/parking.png",
-                "123"
-            ),
+
         ]
 
-
     def initialise_board(self):
+        previous_rects_width = 0
+        previous_rects_height = screen_height/6
+        direction = "left"
         for entry in border_data:
-            rect_type = entry["rect_type"]
+            rect_type = entry.pop("rect_type")
             rect_class = self.get_rect_class(rect_type)
+            previous_rects_width += rect_class.width
+            x = screen_width - previous_rects_width
+            y = screen_height - previous_rects_height
+            obj = rect_class(x, y, **entry)
+            self.board.append(obj)
 
-
-     @staticmethod
+    @staticmethod
     def get_rect_class(rect_type):
         data_classes = {
-            "side_image" : SideImageMapCard,
-            "corner" : CornerMapCard,
-            "generic" : GenericMapCard
+            "side_image": SideImageMapCard,
+            "corner": CornerMapCard,
+            "generic": GenericMapCard
         }
 
         return data_classes[rect_type]
+
     def display(self):
         for c in self.board:
             c.blit()

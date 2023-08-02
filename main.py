@@ -12,6 +12,7 @@ class Game:
         pass
 
     def run(self):
+        b.initialise_board()
         running = True
         while running:
             for event in pygame.event.get():
