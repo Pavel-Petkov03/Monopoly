@@ -1,4 +1,5 @@
 from sprites.map_cards_types import CornerMapCard, GenericMapCard, SideImageMapCard, screen_width, screen_height
+from vars import border_data
 
 
 class NeighborHood:
@@ -58,6 +59,22 @@ class Board:
             ),
         ]
 
+
+    def initialise_board(self):
+        for entry in border_data:
+            rect_type = entry["rect_type"]
+            rect_class = self.get_rect_class(rect_type)
+
+
+     @staticmethod
+    def get_rect_class(rect_type):
+        data_classes = {
+            "side_image" : SideImageMapCard,
+            "corner" : CornerMapCard,
+            "generic" : GenericMapCard
+        }
+
+        return data_classes[rect_type]
     def display(self):
         for c in self.board:
             c.blit()
