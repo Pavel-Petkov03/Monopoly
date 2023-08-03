@@ -67,7 +67,7 @@ border_data = [
     },
     {
         "rect_type": "corner",
-        "inside_image_path": "images/parking.png"
+        "inside_image_path": "images/in_jail.png"
     },
     {
         "rect_type": 'generic',
@@ -79,7 +79,7 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "НЕК",
         "price": "120",
-        "inside_image_path": "images/parking.png"
+        "inside_image_path": "images/lamp.png"
     },
     {
         "rect_type": 'generic',
@@ -169,7 +169,7 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "ВИК",
-        "inside_image_path": "images/chance.png"
+        "inside_image_path": "images/sink.png"
     },
     {
         "rect_type": 'generic',
@@ -223,8 +223,8 @@ border_data = [
     },
     {
         "rect_type": 'side_image',
-        "caption": "Обществен Трезор",
-        "inside_image_path": "images/treasure.png"
+        "caption": "Данък",
+        "inside_image_path": "images/tax.png"
     },
     {
         "rect_type": 'generic',
