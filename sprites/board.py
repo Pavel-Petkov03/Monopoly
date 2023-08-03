@@ -1,10 +1,5 @@
 from sprites.map_cards_types import CornerMapCard, GenericMapCard, SideImageMapCard
 from vars import border_data, screen_rect_size
-from math import floor
-
-class NeighborHood:
-    def __init__(self, map_cards):
-        self.map_cards = map_cards
 
 
 class Board:
@@ -37,7 +32,7 @@ class Board:
                 y = 0
                 previous_rects_width += rect_class.width
             elif direction == "bottom":
-                x = screen_rect_size- previous_rects_width
+                x = screen_rect_size - previous_rects_width
                 y = previous_rects_height
                 previous_rects_height += rect_class.width
             obj = rect_class(x, y, **entry)
@@ -49,7 +44,6 @@ class Board:
                 direction, rotation_degrees = self.get_direction(direction)
                 counter = 0
             counter += 1
-
 
     def get_direction(self, direction):
         ds = {
