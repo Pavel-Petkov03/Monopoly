@@ -1,6 +1,7 @@
 import pygame
 from sprites.board import Board, SideImageMapCard
 from vars import screen, screen_rect_size
+
 pygame.init()
 
 b = Board()
@@ -26,8 +27,6 @@ class Game:
         image = pygame.image.load("images/background.jpg").convert_alpha()
         image = pygame.transform.scale(image, (screen_rect_size, screen_rect_size)).convert_alpha()
         screen.blit(image, (0, 0))
-
-
 
 game = Game()
 game.run()
