@@ -11,7 +11,7 @@ pygame.display.set_caption(GAME_NAME)
 border_data = [
     {
         "rect_type": "corner",
-        "inside_image_path": "images/start.png"
+        "inside_image_path": "start.png"
     },
     {
         "rect_type": 'generic',
@@ -22,7 +22,7 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Обществен Трезор",
-        "inside_image_path": "images/treasure.png"
+        "inside_image_path": "treasure.png"
     },
     {
         "rect_type": 'generic',
@@ -34,13 +34,13 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Данък",
         "price": "400",
-        "inside_image_path": "images/treasure.png"
+        "inside_image_path": "treasure.png"
     },
     {
         "rect_type": 'side_image',
         "caption": "Гара София",
         "price": "200",
-        "inside_image_path": "images/station.png"
+        "inside_image_path": "station.png"
     },
     {
         "rect_type": 'generic',
@@ -51,7 +51,7 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Шанс",
-        "inside_image_path": "images/chance.png"
+        "inside_image_path": "chance.png"
     },
     {
         "rect_type": 'generic',
@@ -67,7 +67,7 @@ border_data = [
     },
     {
         "rect_type": "corner",
-        "inside_image_path": "images/in_jail.png"
+        "inside_image_path": "in_jail.png"
     },
     {
         "rect_type": 'generic',
@@ -79,7 +79,7 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "НЕК",
         "price": "120",
-        "inside_image_path": "images/lamp.png"
+        "inside_image_path": "lamp.png"
     },
     {
         "rect_type": 'generic',
@@ -95,7 +95,7 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Гара Пловдив",
         "price": "200",
-        "inside_image_path": "images/station.png"
+        "inside_image_path": "station.png"
     },
     {
         "rect_type": 'generic',
@@ -107,7 +107,7 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Обществен трезор",
         "price": "200",
-        "inside_image_path": "images/treasure.png"
+        "inside_image_path": "treasure.png"
     },
     {
         "rect_type": 'generic',
@@ -123,7 +123,7 @@ border_data = [
     },
     {
         "rect_type": "corner",
-        "inside_image_path": "images/parking.png"
+        "inside_image_path": "parking.png"
     },
     {
         "rect_type": 'generic',
@@ -134,7 +134,7 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Шанс",
-        "inside_image_path": "images/chance.png"
+        "inside_image_path": "chance.png"
     }, {
         "rect_type": 'generic',
         "caption": "ул Шипка",
@@ -151,7 +151,7 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Гара Варна",
         "price": "200",
-        "inside_image_path": "images/station.png"
+        "inside_image_path": "station.png"
     },
     {
         "rect_type": 'generic',
@@ -169,7 +169,7 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "ВИК",
-        "inside_image_path": "images/sink.png"
+        "inside_image_path": "sink.png"
     },
     {
         "rect_type": 'generic',
@@ -179,7 +179,7 @@ border_data = [
     },
     {
         "rect_type": 'corner',
-        "inside_image_path": "images/police.png",
+        "inside_image_path": "police.png",
     },
     {
         "rect_type": 'generic',
@@ -196,7 +196,7 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Обществен Трезор",
-        "inside_image_path": "images/treasure.png"
+        "inside_image_path": "treasure.png"
     },
     {
         "rect_type": 'generic',
@@ -208,12 +208,12 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Гара Бургас",
         "price": "200",
-        "inside_image_path": "images/station.png"
+        "inside_image_path": "station.png"
     },
     {
         "rect_type": 'side_image',
         "caption": "Шанс",
-        "inside_image_path": "images/chance.png"
+        "inside_image_path": "chance.png"
     },
     {
         "rect_type": 'generic',
@@ -224,7 +224,7 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Данък",
-        "inside_image_path": "images/tax.png"
+        "inside_image_path": "tax.png"
     },
     {
         "rect_type": 'generic',

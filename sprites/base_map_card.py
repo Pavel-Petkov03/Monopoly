@@ -11,7 +11,7 @@ class BaseMapCard(pygame.sprite.Sprite):
         self.image = None
         self.x = x
         self.y = y
-        self.inside_image_path = inside_image_path
+        self.inside_image_path = f"images/board/{inside_image_path}"
         self.caption = caption
         self.color = color
         self.price = price
