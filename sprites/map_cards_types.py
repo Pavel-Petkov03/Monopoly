@@ -12,8 +12,7 @@ class GenericMapCard(BaseMapCard):
         super().__init__(x, y, **kwargs)
 
     def add_additional_data(self):
-        inner_rect = pygame.Rect(0, 0, self.width, self.height / 4)
-        pygame.draw.rect(self.image, self.color, inner_rect)
+        pygame.draw.rect(self.image, self.color, self.top_inner_rect)
         self.set_caption(self.caption, self.width / 5, self.width / 2, self.height / 3)
         self.set_caption(f"${self.price}", self.width / 6, self.width / 2, self.height * 7 / 8)
 

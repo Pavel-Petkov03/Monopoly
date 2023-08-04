@@ -18,7 +18,6 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN and not self.d.on_display and self.d.rect.collidepoint(*pygame.mouse.get_pos()):
-                    print(*pygame.mouse.get_pos())
                     self.d.on_display = True
                     self.d.start = pygame.time.get_ticks()
                     self.d.end = pygame.time.get_ticks() + 1000

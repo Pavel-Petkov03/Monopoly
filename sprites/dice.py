@@ -17,8 +17,8 @@ class Dice(pygame.sprite.Sprite):
         self.image = pygame.Surface((screen_rect_size / 12, screen_rect_size / 12))
         self.rect = pygame.Rect(x, y, screen_rect_size / 12, screen_rect_size / 12)
         self.image.fill("white")
-        self.image.blit(self.animation_images[0], (0, 0))
-        self.calculated_dice = random.randint(1, 6)
+        self.current_image = self.animation_images[5]
+        self.calculated_dice = None
         self.start = None
         self.end = None
 
@@ -38,13 +38,15 @@ class Dice(pygame.sprite.Sprite):
                     self.start = pygame.time.get_ticks()
                     index = random.randint(0, 5)
                     self.image.fill("white")
-                    self.image.blit(self.animation_images[index], (0, 0))
+                    self.current_image = self.animation_images[index]
                 else:
                     self.animation_on = False
             else:
-                self.image.blit(self.animation_images[self.calculated_dice - 1], (0, 0))
+                self.calculated_dice = random.randint(1, 6)
+                self.current_image = self.animation_images[self.calculated_dice - 1]
                 self.on_display = False
                 self.animation_on = True
+        self.image.blit(self.current_image, (0, 0))
 
     def blit(self, surface):
         surface.blit(self.image, (self.x, self.y))
