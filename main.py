@@ -1,4 +1,6 @@
 import pygame
+
+from player import Player
 from sprites.board import Board
 from sprites.dice import Dice
 from vars import screen, screen_rect_size
@@ -9,6 +11,16 @@ class Game:
         pygame.init()
         self.board = Board()
         self.board.initialise_board()
+        player = Player("pavkata", "car.png")
+        player2 = Player("pavkata", "ship.png")
+        player3 = Player("pavkata", "dog.png")
+        player4 = Player("pavkata", "truck.png")
+        self.board.board[12].players = {
+            player : player.piece_image,
+            # player2 : player2.piece_image,
+            # player3 : player3.piece_image,
+            # player4 : player4.piece_image
+        }
         self.d = Dice(screen_rect_size / 2, screen_rect_size / 2)
 
     def run(self):

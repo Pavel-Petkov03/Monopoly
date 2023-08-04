@@ -16,7 +16,7 @@ class BaseMapCard(pygame.sprite.Sprite):
         self.color = color
         self.price = price
         self.rotation = rotation
-        self.pieces = {}
+        self.players = {}
         self.top_inner_rect = pygame.Rect(0, 0, self.width, self.height / 4)
 
     def set_rect(self):
@@ -26,15 +26,15 @@ class BaseMapCard(pygame.sprite.Sprite):
         self.add_additional_data()
 
     def load_pieces(self):
-        scaled_width = self.top_inner_rect.width / (len(self.pieces) + 1)
-        scaled_height = self.top_inner_rect.height
+        scaled_width = self.top_inner_rect.width
+        scaled_height = self.height / (len(self.players) + 1)
         x = self.top_inner_rect.x
         y = self.top_inner_rect.y
-        for piece in self.pieces:
-            image = piece.image
+        for player in self.players:
+            image = player.piece_image
             image = pygame.transform.scale(image, (scaled_width, scaled_height))
-            x += scaled_width
-            self.image.blit(image, x, y)
+            y += scaled_height
+            self.image.blit(image, (x, y))
 
     def add_additional_data(self):
         pass
