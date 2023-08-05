@@ -1,8 +1,9 @@
 import pygame
-from vars import screen
+
+from sprites.texture import Texture
 
 
-class BaseMapCard(pygame.sprite.Sprite):
+class BaseMapCard(Texture):
     width = 0
     height = 0
 
@@ -61,7 +62,7 @@ class BaseMapCard(pygame.sprite.Sprite):
             padding_counter += padding
             self.image.blit(text_surface, text_rect)
 
-    def blit(self):
+    def blit(self, window):
         self.set_rect()
         self.load_pieces()
         rotated_image = pygame.transform.rotate(self.image, self.rotation)
@@ -69,6 +70,6 @@ class BaseMapCard(pygame.sprite.Sprite):
         rect.x = self.x
         rect.y = self.y
 
-        screen.blit(rotated_image, rect)
+        window.blit(rotated_image, rect)
 
 

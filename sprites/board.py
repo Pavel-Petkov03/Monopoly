@@ -1,12 +1,11 @@
 from sprites.map_cards_types import CornerMapCard, GenericMapCard, SideImageMapCard
 from vars import border_data, screen_rect_size
+from texture import TextureGroup
 
-
-class Board:
+class Board(TextureGroup):
     def __init__(self):
-        self.board = [
-
-        ]
+        super().__init__([])
+        self.initialise_board()
 
     def initialise_board(self):
         previous_rects_width = 0
@@ -36,7 +35,7 @@ class Board:
                 y = previous_rects_height
                 previous_rects_height += rect_class.width
             obj = rect_class(x, y, **entry)
-            self.board.append(obj)
+            self.add([obj])
 
             if counter == 10:
                 previous_rects_width = rect_class.width
@@ -68,6 +67,3 @@ class Board:
 
         return data_classes[rect_type]
 
-    def display(self):
-        for c in self.board:
-            c.blit()

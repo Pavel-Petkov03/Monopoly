@@ -6,22 +6,28 @@ from sprites.dice import Dice
 from vars import screen, screen_rect_size
 
 
+
+
 class Game:
     def __init__(self):
         pygame.init()
         self.board = Board()
-        self.board.initialise_board()
+        self.d = Dice(screen_rect_size / 2, screen_rect_size / 2)
+        self.textures = [
+            self.board,
+            self.d
+        ]
         player = Player("pavkata", "car.png")
         player2 = Player("pavkata", "ship.png")
         player3 = Player("pavkata", "dog.png")
         player4 = Player("pavkata", "truck.png")
-        self.board.board[12].players = {
-            player : player.piece_image,
+        self.board.sprites()[0].players = {
+            player: player.piece_image,
             # player2 : player2.piece_image,
             # player3 : player3.piece_image,
             # player4 : player4.piece_image
         }
-        self.d = Dice(screen_rect_size / 2, screen_rect_size / 2)
+
 
     def run(self):
         running = True
@@ -34,9 +40,9 @@ class Game:
                     self.d.start = pygame.time.get_ticks()
                     self.d.end = pygame.time.get_ticks() + 1000
             self.set_background()
-            self.board.display()
-            self.d.blit(screen)
-            self.d.update()
+            for texture in self.textures:
+                texture.blit(screen)
+                texture.update()
             pygame.display.update()
 
     @staticmethod

@@ -1,10 +1,12 @@
 import random
 import os
 import pygame
+
+from sprites.texture import Texture
 from vars import screen_rect_size, BASE_DIR
 
 
-class Dice(pygame.sprite.Sprite):
+class Dice(Texture):
     ANIMATION_IMAGES = [os.path.join(BASE_DIR, "images", "dice", "animation", f"{i}.png") for i in range(1, 7)]
 
     def __init__(self, x, y):
