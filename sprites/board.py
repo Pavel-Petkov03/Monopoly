@@ -1,6 +1,7 @@
 from sprites.map_cards_types import CornerMapCard, GenericMapCard, SideImageMapCard
+from sprites.texture import TextureGroup
 from vars import border_data, screen_rect_size
-from texture import TextureGroup
+
 
 class Board(TextureGroup):
     def __init__(self):
