@@ -2,6 +2,7 @@ import random
 import os
 import pygame
 
+from events.dice_click import DiceClickEvent
 from sprites.texture import Texture
 from vars import screen_rect_size, BASE_DIR
 
@@ -23,6 +24,9 @@ class Dice(Texture):
         self.calculated_dice = None
         self.start = None
         self.end = None
+        self.event_list = [
+            DiceClickEvent
+        ]
 
     @staticmethod
     def load_images(location_array):
@@ -49,6 +53,11 @@ class Dice(Texture):
                 self.on_display = False
                 self.animation_on = True
         self.image.blit(self.current_image, (0, 0))
+
+    def on_click(self):
+        self.on_display = True
+        self.start = pygame.time.get_ticks()
+        self.end = pygame.time.get_ticks() + 1000
 
     def blit(self, surface):
         surface.blit(self.image, (self.x, self.y))
