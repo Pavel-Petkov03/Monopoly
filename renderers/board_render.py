@@ -1,7 +1,7 @@
 from player import Player
 from renderers.base_renderer import Renderer
 from sprites.board import Board
-from sprites.dice import Dice
+from sprites.dice import Dice, Dices
 from vars import screen_rect_size
 
 
@@ -10,10 +10,10 @@ class BoardRender(Renderer):
         self.players = players
         super().__init__()
         self.board = Board()
-        self.d = Dice(screen_rect_size / 2, screen_rect_size / 2)
+        self.dices = Dices()
         self.textures = [
             self.board,
-            self.d
+            self.dices
         ]
 
         player = Player("pavkata", "car.png")
@@ -26,3 +26,4 @@ class BoardRender(Renderer):
             # player3 : player3.piece_image,
             # player4 : player4.piece_image
         }
+
