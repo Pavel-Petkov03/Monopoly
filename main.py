@@ -1,11 +1,11 @@
 import pygame
-from renderers.board_render import BoardRender
+from renderers.board_render import BoardRenderer
 from vars import screen, screen_rect_size
 
 
 class Game:
     def __init__(self):
-        self.render = BoardRender([])
+        self.renderer = BoardRenderer([])
         pygame.init()
 
     def run(self):
@@ -14,13 +14,13 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                for texture in self.render.textures:
+                for texture in self.renderer.textures:
                     texture.exec_events(event_type=event.type)
 
             self.set_background()
-            for texture in self.render.textures:
+            for texture in self.renderer.textures:
                 texture.blit(screen)
-                texture.update()
+                texture.update(**texture.update_kwargs)
             pygame.display.update()
 
     @staticmethod

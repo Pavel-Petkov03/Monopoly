@@ -3,8 +3,12 @@ import pygame
 
 class Texture(pygame.sprite.Sprite):
     def __init__(self):
+        
         super().__init__()
         self.event_list = []
+        self.update_kwargs = {}
+
+
 
     def blit(self, window):
         pass
@@ -19,13 +23,16 @@ class Texture(pygame.sprite.Sprite):
 
 
 class TextureGroup(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.update_kwargs = {}
     def blit(self, window):
         for sprite in self.sprites():
             sprite.blit(window)
 
-    def update(self, ) -> None:
+    def update(self, *args, **kwargs) -> None:
         for sprite in self.sprites():
-            sprite.update()
+            sprite.update(*args, **kwargs)
 
     def exec_events(self, event_type):
         for sprite in self.sprites():

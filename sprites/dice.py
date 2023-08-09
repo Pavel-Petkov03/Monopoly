@@ -17,7 +17,7 @@ class Dice(Texture):
         self.width = screen_rect_size / 12
         self.height = screen_rect_size / 12
         self.animation_images = self.load_images(self.ANIMATION_IMAGES)
-        self.image = pygame.Surface((self.width, self.height))
+        self.image = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
         self.rect = pygame.Rect(x, y, self.width, self.height)
         self.image.fill("white")
         self.current_image = self.animation_images[5]
@@ -27,8 +27,8 @@ class Dice(Texture):
     def load_images(self, location_array):
         res = []
         for location in location_array:
-            image = pygame.image.load(location)
-            image = pygame.transform.scale(image, (self.width, self.height))
+            image = pygame.image.load(location).convert_alpha()
+            image = pygame.transform.scale(image, (self.width, self.height)).convert_alpha()
             res.append(image)
         return res
 
@@ -44,7 +44,7 @@ class Dice(Texture):
         self.calculated_dice = random.randint(1, 6)
         print(self.calculated_dice)
         self.current_image = self.animation_images[self.calculated_dice - 1]
-
+        return self.calculated_dice
 
 class Dices(Texture):
 
@@ -61,7 +61,7 @@ class Dices(Texture):
             DiceClickEvent
         ]
 
-    def update(self):
+    def update(self, *args, **kwargs):
 
         if self.on_display:
             if self.animation_on:
@@ -72,8 +72,22 @@ class Dices(Texture):
                 else:
                     self.animation_on = False
             else:
+                board = kwargs["board"]
+                players = kwargs["players"]
+                thrown = 0
                 for sprite in self.dices:
-                    sprite.calculate_num()
+                    thrown += sprite.calculate_num()
+                current_player = players[0]
+                current_board_player_index = current_player.board_index
+                board.sprites()[current_board_player_index].players.pop(current_player)
+                new_index = thrown + current_board_player_index
+                if new_index >= 39:
+                    new_index -= 39
+                current_player.board_index = new_index
+                board.sprites()[new_index].players[current_player] = current_player.piece_image
+                players.append(players.popleft())
+
+
                 self.on_display = False
                 self.animation_on = True
         for sprite in self.dices:

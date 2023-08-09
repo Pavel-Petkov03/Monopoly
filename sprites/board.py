@@ -5,7 +5,7 @@ from vars import border_data, screen_rect_size
 
 class Board(TextureGroup):
     def __init__(self):
-        super().__init__([])
+        super().__init__()
         self.initialise_board()
 
     def initialise_board(self):
