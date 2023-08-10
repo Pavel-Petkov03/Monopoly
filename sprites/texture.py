@@ -16,7 +16,7 @@ class Texture(pygame.sprite.Sprite):
     def update(self, *args, **kwargs) -> None:
         pass
 
-    def exec_events(self, event_type):
+    def exec_events(self, event_type=None):
         for event in self.event_list:
             if event.condition(event_type, self):
                 event.execute(self)
@@ -34,6 +34,6 @@ class TextureGroup(pygame.sprite.Group):
         for sprite in self.sprites():
             sprite.update(*args, **kwargs)
 
-    def exec_events(self, event_type):
+    def exec_events(self, event_type=None):
         for sprite in self.sprites():
             sprite.exec_events(event_type)

@@ -3,6 +3,7 @@ import pygame
 from sprites.texture import Texture
 
 
+
 class BaseMapCard(Texture):
     width = 0
     height = 0
@@ -72,4 +73,7 @@ class BaseMapCard(Texture):
 
         window.blit(rotated_image, rect)
 
-
+    def add_player(self, player):
+        self.players[player] = player.piece_image
+        self.exec_events()
+       

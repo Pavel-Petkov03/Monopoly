@@ -23,7 +23,6 @@ class Dice(Texture):
         self.current_image = self.animation_images[5]
         self.calculated_dice = None
 
-
     def load_images(self, location_array):
         res = []
         for location in location_array:
@@ -45,6 +44,7 @@ class Dice(Texture):
         print(self.calculated_dice)
         self.current_image = self.animation_images[self.calculated_dice - 1]
         return self.calculated_dice
+
 
 class Dices(Texture):
 
@@ -86,8 +86,6 @@ class Dices(Texture):
                 current_player.board_index = new_index
                 board.sprites()[new_index].players[current_player] = current_player.piece_image
                 players.append(players.popleft())
-
-
                 self.on_display = False
                 self.animation_on = True
         for sprite in self.dices:
@@ -101,6 +99,3 @@ class Dices(Texture):
     def blit(self, window):
         for dice in self.dices:
             dice.blit(window)
-
-
-
