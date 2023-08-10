@@ -72,19 +72,20 @@ class Dices(Texture):
                 else:
                     self.animation_on = False
             else:
-                board = kwargs["board"]
-                players = kwargs["players"]
+                renderer_state = kwargs["state"]
+                board_sprites = renderer_state.board.sprites()
+                players = renderer_state.players
                 thrown = 0
                 for sprite in self.dices:
                     thrown += sprite.calculate_num()
                 current_player = players[0]
                 current_board_player_index = current_player.board_index
-                board.sprites()[current_board_player_index].players.pop(current_player)
+                board_sprites[current_board_player_index].players.pop(current_player)
                 new_index = thrown + current_board_player_index
                 if new_index >= 39:
                     new_index -= 39
                 current_player.board_index = new_index
-                board.sprites()[new_index].players[current_player] = current_player.piece_image
+                board_sprites[new_index].add_player(current_player)
                 players.append(players.popleft())
                 self.on_display = False
                 self.animation_on = True

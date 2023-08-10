@@ -3,10 +3,15 @@ from sprites.texture import TextureGroup
 from vars import border_data, screen_rect_size
 
 
+
+
+
 class Board(TextureGroup):
     def __init__(self):
         super().__init__()
         self.initialise_board()
+
+
 
     def initialise_board(self):
         previous_rects_width = 0
@@ -67,4 +72,3 @@ class Board(TextureGroup):
         }
 
         return data_classes[rect_type]
-

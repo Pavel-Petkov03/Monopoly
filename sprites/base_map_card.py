@@ -8,15 +8,17 @@ class BaseMapCard(Texture):
     width = 0
     height = 0
 
-    def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None):
+    def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None, price_dict=None, neighborhood=None):
         super().__init__()
         self.image = None
         self.x = x
         self.y = y
+        self.neighborhood = neighborhood
         self.inside_image_path = f"images/board/{inside_image_path}"
         self.caption = caption
         self.color = color
         self.price = price
+        self.price_dict = price_dict
         self.rotation = rotation
         self.players = {}
         self.top_inner_rect = pygame.Rect(0, 0, self.width, self.height / 4)

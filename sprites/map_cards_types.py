@@ -2,7 +2,8 @@ import pygame
 
 from events.base_event import Event
 from sprites.base_map_card import BaseMapCard
-from vars import screen_rect_size
+from sprites.modal import Modal
+from vars import screen_rect_size, neighborhoods
 
 
 
@@ -11,11 +12,13 @@ class GenericMapCardEvent(Event):
 
     @staticmethod
     def condition(texture, event_type):
-        return True
+        return texture.new_player_on
 
     @staticmethod
     def execute(texture):
         texture.new_player_on = True
+
+
 
 
 class GenericMapCard(BaseMapCard):
@@ -26,6 +29,8 @@ class GenericMapCard(BaseMapCard):
         super().__init__(x, y, **kwargs)
         self.owner = None
         self.new_player_on = False
+        self.houses = 0
+        self.neighborhood = neighborhoods[self.neighborhood]
         self.event_list = [
             GenericMapCardEvent
         ]
@@ -37,12 +42,21 @@ class GenericMapCard(BaseMapCard):
 
     def update(self, *args, **kwargs) -> None:
         if self.new_player_on:
-            current_player = kwargs["current_player"]
+            print("We did it'")
+            renderer_state = kwargs["state"]
+            current_player = renderer_state.players[0]
             if current_player == self.owner:
-                pass
-            else:
-                pass
+                if self.neighborhood.all_map_cards_available():
+                    if self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(self):
+                        modal = Modal()
+                        self.houses += 1
 
+
+            else:
+                if self.owner is None:
+                    pass
+                else:
+                    pass
 
 
 class CornerMapCard(BaseMapCard):
