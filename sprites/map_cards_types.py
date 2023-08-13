@@ -1,24 +1,21 @@
 import pygame
 
 from events.base_event import Event
+from events.custom_types import ON_BOX
 from sprites.base_map_card import BaseMapCard
-from sprites.modal import Modal
+from sprites.modal import Modal, GenericMapCardModal
 from vars import screen_rect_size, neighborhoods
 
 
-
-class GenericMapCardEvent(Event):
-
+class MapCardEvent(Event):
 
     @staticmethod
-    def condition(texture, event_type):
-        return texture.new_player_on
+    def condition(event_type, texture):
+        return event_type == ON_BOX
 
     @staticmethod
     def execute(texture):
         texture.new_player_on = True
-
-
 
 
 class GenericMapCard(BaseMapCard):
@@ -31,9 +28,6 @@ class GenericMapCard(BaseMapCard):
         self.new_player_on = False
         self.houses = 0
         self.neighborhood = neighborhoods[self.neighborhood]
-        self.event_list = [
-            GenericMapCardEvent
-        ]
 
     def add_additional_data(self):
         pygame.draw.rect(self.image, self.color, self.top_inner_rect)
@@ -42,19 +36,17 @@ class GenericMapCard(BaseMapCard):
 
     def update(self, *args, **kwargs) -> None:
         if self.new_player_on:
-            print("We did it'")
             renderer_state = kwargs["state"]
             current_player = renderer_state.players[0]
             if current_player == self.owner:
                 if self.neighborhood.all_map_cards_available():
-                    if self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(self):
-                        modal = Modal()
+                    if self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(
+                            self):
                         self.houses += 1
-
-
             else:
                 if self.owner is None:
-                    pass
+                    modal = GenericMapCardModal(self.color, self.price_dict)
+                    self.add_modal_to_renderer(modal, renderer_state)
                 else:
                     pass
 

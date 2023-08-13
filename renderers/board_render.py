@@ -13,7 +13,6 @@ class BoardRenderer(Renderer):
         super().__init__()
         self.board = Board()
         self.dices = Dices()
-        self.modal = GenericMapCardModal()
         player1 = Player("pavkata", "car.png")
         player2 = Player("pavkata", "dog.png")
         self.board.sprites()[0].players = {
@@ -25,8 +24,7 @@ class BoardRenderer(Renderer):
         self.players = deque([player1, player2])
         self.textures = [
             self.board,
-            self.modal,
-
+            self.dices
         ]
         self.load_kwargs()
 

@@ -18,12 +18,20 @@ class Modal(Texture):
         window.blit(self.surface, (self.x, self.y))
 
 
-
 class GenericMapCardModal(Modal):
-    def __init__(self):
+    def __init__(self, inner_rect_color, inner_rect_data):
+        self.inner_rect_color = inner_rect_color
+        self.inner_rect_data = inner_rect_data
         super().__init__()
+        border_color = (0, 0, 0)
+        border_padding = 1
+        inner_rect = pygame.Rect(self.x / 2 + border_padding, border_padding + self.y / 4,
+                                 self.width - 2 * border_padding - 2 * self.x / 2,
+                                 self.height - 2 * border_padding - 2 * self.y / 4)
+        inner_fill_rect = pygame.Rect(inner_rect.x + inner_rect.width / 6,
+                                      inner_rect.y + inner_rect.height / 10,
+                                      inner_rect.width - 2 * inner_rect.width / 6,
+                                      inner_rect.height - 2 * 4 * inner_rect.height / 10)
 
-
-
-
-
+        pygame.draw.rect(self.surface, border_color, inner_rect, border_padding)
+        pygame.draw.rect(self.surface, inner_rect_color, inner_fill_rect)

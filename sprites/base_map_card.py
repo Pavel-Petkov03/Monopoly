@@ -1,14 +1,15 @@
 import pygame
 
+from sprites.map_cards_types import MapCardEvent
 from sprites.texture import Texture
-
 
 
 class BaseMapCard(Texture):
     width = 0
     height = 0
 
-    def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None, price_dict=None, neighborhood=None):
+    def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None,
+                 price_dict=None, neighborhood=None):
         super().__init__()
         self.image = None
         self.x = x
@@ -22,6 +23,9 @@ class BaseMapCard(Texture):
         self.rotation = rotation
         self.players = {}
         self.top_inner_rect = pygame.Rect(0, 0, self.width, self.height / 4)
+        self.event_list = [
+            MapCardEvent
+        ]
 
     def set_rect(self):
         self.image = pygame.Surface((self.width, self.height))
@@ -78,4 +82,9 @@ class BaseMapCard(Texture):
     def add_player(self, player):
         self.players[player] = player.piece_image
         self.exec_events()
-       
+
+    def add_modal_to_renderer(self, modal, renderer):
+        renderer.textures.append(modal)
+
+    def remove_modal_from_renderer(self, renderer):
+        renderer.textures.pop()
