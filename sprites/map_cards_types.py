@@ -1,21 +1,8 @@
 import pygame
 
-from events.base_event import Event
-from events.custom_types import ON_BOX
 from sprites.base_map_card import BaseMapCard
-from sprites.modal import Modal, GenericMapCardModal
+from sprites.modal import GenericMapCardModal
 from vars import screen_rect_size, neighborhoods
-
-
-class MapCardEvent(Event):
-
-    @staticmethod
-    def condition(event_type, texture):
-        return event_type == ON_BOX
-
-    @staticmethod
-    def execute(texture):
-        texture.new_player_on = True
 
 
 class GenericMapCard(BaseMapCard):
@@ -35,7 +22,7 @@ class GenericMapCard(BaseMapCard):
         self.set_caption(f"${self.price}", self.width / 6, self.width / 2, self.height * 7 / 8)
 
     def update(self, *args, **kwargs) -> None:
-        if self.new_player_on:
+        if self.new_player_on and kwargs["state"].players[0] in self.players:
             renderer_state = kwargs["state"]
             current_player = renderer_state.players[0]
             if current_player == self.owner:
@@ -49,7 +36,6 @@ class GenericMapCard(BaseMapCard):
                     self.add_modal_to_renderer(modal, renderer_state)
                 else:
                     pass
-
 
 class CornerMapCard(BaseMapCard):
     width = screen_rect_size / 16 * 2

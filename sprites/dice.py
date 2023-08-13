@@ -2,6 +2,7 @@ import random
 import os
 import pygame
 
+from events.custom_types import ON_BOX
 from events.dice_click import DiceClickEvent
 from sprites.texture import Texture, TextureGroup
 from vars import screen_rect_size, BASE_DIR
@@ -87,6 +88,7 @@ class Dices(Texture):
                 current_player.board_index = new_index
                 board_sprites[new_index].add_player(current_player)
                 players.append(players.popleft())
+                pygame.event.post(pygame.event.Event(ON_BOX))
                 self.on_display = False
                 self.animation_on = True
         for sprite in self.dices:

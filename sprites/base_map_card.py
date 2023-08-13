@@ -1,6 +1,6 @@
 import pygame
 
-from sprites.map_cards_types import MapCardEvent
+from events.map_card_event import MapCardEvent
 from sprites.texture import Texture
 
 

@@ -3,9 +3,7 @@ from collections import deque
 from player import Player
 from renderers.base_renderer import Renderer
 from sprites.board import Board
-from sprites.dice import Dice, Dices
-from sprites.modal import  GenericMapCardModal
-from vars import screen_rect_size
+from sprites.dice import Dices
 
 
 class BoardRenderer(Renderer):
@@ -22,6 +20,7 @@ class BoardRenderer(Renderer):
             # player4 : player4.piece_image
         }
         self.players = deque([player1, player2])
+        self.current_player = self.players[0]
         self.textures = [
             self.board,
             self.dices
