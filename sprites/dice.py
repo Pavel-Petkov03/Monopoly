@@ -87,7 +87,6 @@ class Dices(Texture):
                     new_index -= 39
                 current_player.board_index = new_index
                 board_sprites[new_index].add_player(current_player)
-                players.append(players.popleft())
                 pygame.event.post(pygame.event.Event(ON_BOX))
                 self.on_display = False
                 self.animation_on = True

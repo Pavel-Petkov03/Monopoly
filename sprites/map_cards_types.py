@@ -32,10 +32,11 @@ class GenericMapCard(BaseMapCard):
                         self.houses += 1
             else:
                 if self.owner is None:
-                    modal = GenericMapCardModal(self.color, self.price_dict)
+                    modal = GenericMapCardModal(self.color, self.caption , self.price_dict)
                     self.add_modal_to_renderer(modal, renderer_state)
                 else:
                     pass
+            self.new_player_on = False
 
 class CornerMapCard(BaseMapCard):
     width = screen_rect_size / 16 * 2
