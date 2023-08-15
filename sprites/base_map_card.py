@@ -63,11 +63,8 @@ class BaseMapCard(Texture):
         padding = self.height / 12
         padding_counter = 0
         for word in words:
-            font = pygame.font.Font(None, int(size))
-            text_surface = font.render(word, True, (0, 0, 0))
-            text_rect = text_surface.get_rect(center=(width, height + padding_counter))
+            self.create_text_and_blit(self.image, word, size, (0, 0, 0), (width, height + padding_counter))
             padding_counter += padding
-            self.image.blit(text_surface, text_rect)
 
     def blit(self, window):
         self.set_rect()

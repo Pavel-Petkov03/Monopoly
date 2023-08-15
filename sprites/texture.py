@@ -1,14 +1,14 @@
 import pygame
 
+from utils import TextureMixin
 
-class Texture(pygame.sprite.Sprite):
+
+class Texture(pygame.sprite.Sprite, TextureMixin):
     def __init__(self):
-        
+
         super().__init__()
         self.event_list = []
         self.update_kwargs = {}
-
-
 
     def blit(self, window):
         pass
@@ -22,10 +22,11 @@ class Texture(pygame.sprite.Sprite):
                 event.execute(self)
 
 
-class TextureGroup(pygame.sprite.Group):
+class TextureGroup(pygame.sprite.Group, TextureMixin):
     def __init__(self):
         super().__init__()
         self.update_kwargs = {}
+
     def blit(self, window):
         for sprite in self.sprites():
             sprite.blit(window)
