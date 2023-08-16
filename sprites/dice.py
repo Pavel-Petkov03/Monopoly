@@ -58,6 +58,7 @@ class Dices(Texture):
         self.start = None
         self.end = None
         self.dices = (dice1, dice2)
+
         self.event_list = [
             DiceClickEvent
         ]
