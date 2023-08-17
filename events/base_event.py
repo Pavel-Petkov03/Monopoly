@@ -3,7 +3,7 @@ class Event:
     def execute(texture):
         pass
     @staticmethod
-    def condition(texture, event_type):
+    def condition(event_type, texture):
         return False
 
 
