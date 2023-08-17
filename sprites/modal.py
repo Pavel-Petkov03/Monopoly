@@ -99,11 +99,36 @@ class Button(Texture):
         self.create_text_and_blit(self.surface, self.text, self.text_size, self.text_color, self.text_pos)
 
 
+class Action:
+    def __init__(self, renderer, *args, **kwargs):
+        self.render = renderer
+
+    def activate_action(self):
+        pass
+
+
+class GenericMapCardBuyAction(Action):
+    def __init__(self, renderer, map_card_state, current_player):
+        super().__init__(renderer)
+        self.map_card_state = map_card_state
+        self.current_player = current_player
+
+    def execute(self):
+        self.map_card_state.owner = self.current_player
+        self.current_player.money -= int(self.map_card_state.price)
+        print(f"current player became owner and lost {self.map_card_state.price} to buy {self.map_card_state.caption}")
+        self.render.remove_texture()
+
+
 class GenericMapCardModal(Modal):
-    def __init__(self, inner_rect_color, map_card_name, inner_rect_data, price):
-        self.inner_rect_color = inner_rect_color
-        self.inner_rect_data = inner_rect_data
-        self.map_card_name = map_card_name
+    def __init__(self, map_card_state, renderer_state, current_player):
+        self.inner_rect_color = map_card_state.color
+        self.inner_rect_data = map_card_state.price_dict
+        self.map_card_name = map_card_state.caption
+        self.map_card_state = map_card_state
+        self.renderer_state = renderer_state
+        self.current_player = current_player
+
         super().__init__()
         self.map_card = MapCard(
             self.width - 2 * self.x / 2,
@@ -113,7 +138,12 @@ class GenericMapCardModal(Modal):
             self.inner_rect_data,
             (self.x / 2, self.y / 4)
         )
-        self.button_yes = Button(
+        self.add([self.map_card])
+
+
+
+    def get_yes_button(self):
+        return Button(
             width_and_height_tuple=(self.width / 4, self.height / 12),
             background="green",
             text="Да",
@@ -122,9 +152,11 @@ class GenericMapCardModal(Modal):
             blit_pos=(0, self.surface.get_height() - self.height / 12),
             hover_color="yellow",
             inherit_x=self.x,
-            inherit_y=self.y
+            inherit_y=self.y,
+            action_class=GenericMapCardBuyAction(self.renderer_state, self.map_card_state, self.current_player)
         )
-        self.button_no = Button(
+    def get_no_button(self):
+        return Button(
             width_and_height_tuple=(self.width / 4, self.height / 12),
             background="red",
             text="Не",
@@ -135,12 +167,40 @@ class GenericMapCardModal(Modal):
             inherit_x=self.x,
             inherit_y=self.y
         )
+    def get_ok_button(self):
+        return Button(
+            width_and_height_tuple=(self.width / 4, self.height / 12),
+            background="green",
+            text="Ок",
+            text_size=20,
+            text_color="black",
+            blit_pos=(self.surface.get_width() - self.width / 4, self.surface.get_height() - self.height / 12),
+            hover_color="yellow",
+            inherit_x=self.x,
+            inherit_y=self.y
+        )
 
-        self.add([self.map_card, self.button_no, self.button_yes])
-        self.create_text_and_blit(self.surface, f"Искате ли да купите този имот за {price} $", 30, "white",
-                                  (self.width / 2, self.height / 10))
+
 
     def blit(self, window):
         for sprite in self.sprites():
             sprite.blit(self.surface)
         super().blit(window)
+
+
+class BuyGenericMapCardModal(GenericMapCardModal):
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.add([self.get_yes_button(),self.get_no_button()])
+        self.create_text_and_blit(self.surface, f"Искате ли да купите този имот за {map_card_state.price} $", 30,
+                                  "white",
+                                  (self.width / 2, self.height / 10))
+
+class ShowOwnerPropertyMapCardModal(GenericMapCardModal):
+    def __init__(self, *args):
+        super().__init__(*args)
+
+
+
+
+

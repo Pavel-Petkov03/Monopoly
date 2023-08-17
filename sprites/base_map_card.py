@@ -80,8 +80,3 @@ class BaseMapCard(Texture):
         self.players[player] = player.piece_image
         self.exec_events()
 
-    def add_modal_to_renderer(self, modal, renderer):
-        renderer.textures.append(modal)
-
-    def remove_modal_from_renderer(self, renderer):
-        renderer.textures.pop()

@@ -6,6 +6,8 @@ from vars import screen, screen_rect_size
 class Game:
     def __init__(self):
         self.renderer = BoardRenderer([])
+        self.clock = pygame.time.Clock()
+        self.fps = 120
         pygame.init()
 
     def run(self):
@@ -22,6 +24,7 @@ class Game:
                 texture.blit(screen)
                 texture.update(**texture.update_kwargs)
             pygame.display.update()
+            self.clock.tick(self.fps)
 
     @staticmethod
     def set_background():

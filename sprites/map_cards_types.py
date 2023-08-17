@@ -32,8 +32,9 @@ class GenericMapCard(BaseMapCard):
                         self.houses += 1
             else:
                 if self.owner is None:
-                    modal = GenericMapCardModal(self.color, self.caption, self.price_dict, self.price)
-                    self.add_modal_to_renderer(modal, renderer_state)
+                    modal = GenericMapCardModal(self, renderer_state, current_player)
+                    renderer_state.add_texture(modal)
+
                 else:
                     pass
             self.new_player_on = False
