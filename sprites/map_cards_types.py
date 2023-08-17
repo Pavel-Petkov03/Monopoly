@@ -1,7 +1,8 @@
 import pygame
 
 from sprites.base_map_card import BaseMapCard
-from sprites.modal import GenericMapCardModal, ShowOwnerPropertyMapCardModal, BuyGenericMapCardModal
+from sprites.modal import GenericMapCardModal, ShowOwnerPropertyMapCardModal, BuyGenericMapCardModal, \
+    BuildHouseOnOwnerPropertyMapCardModal, PayToOwnerMapCardModal
 from vars import screen_rect_size, neighborhoods
 
 
@@ -31,21 +32,25 @@ class GenericMapCard(BaseMapCard):
         if self.new_player_on and kwargs["state"].players[0] in self.players:
             renderer_state = kwargs["state"]
             current_player = renderer_state.players[0]
-            if current_player == self.owner:
-                if self.neighborhood.all_map_cards_available() and self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(
-                        self):
-                    self.houses += 1
-                else:
-                    modal = ShowOwnerPropertyMapCardModal(self, renderer_state, current_player)
-                    renderer_state.add_texture(modal)
-
-            else:
-                if self.owner is None:
-                    modal = BuyGenericMapCardModal(self, renderer_state, current_player)
-                    renderer_state.add_texture(modal)
-                else:
-                    pass
+            modal_data = (self, renderer_state, current_player)
+            self.get_proper_modal(current_player, modal_data)
             self.new_player_on = False
+    
+    def get_proper_modal(self, current_player, modal_data):
+        if current_player == self.owner:
+            if self.neighborhood.all_map_cards_available() and self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(
+                    self):
+                modal = BuildHouseOnOwnerPropertyMapCardModal(*modal_data)
+            else:
+                modal = ShowOwnerPropertyMapCardModal(*modal_data)
+
+        else:
+            if self.owner is None:
+                modal = BuyGenericMapCardModal(*modal_data)
+            else:
+                modal = PayToOwnerMapCardModal(*modal_data)
+        modal_data[1].add_texture(modal)
+
 
 
 class CornerMapCard(BaseMapCard):
