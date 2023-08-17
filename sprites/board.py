@@ -3,40 +3,37 @@ from sprites.texture import TextureGroup
 from vars import border_data, screen_rect_size
 
 
-
-
-
 class Board(TextureGroup):
     def __init__(self):
         super().__init__()
         self.initialise_board()
-
-
 
     def initialise_board(self):
         previous_rects_width = 0
         previous_rects_height = 0
         counter = 0
         rotation_degrees = 0
-        direction = "left"
+        street_index = 0
+        house_price = 50
         for entry in border_data:
             x, y = 0, 0
             rect_type = entry.pop("rect_type")
             entry["rotation"] = rotation_degrees
+            entry["house_price"] = house_price
             rect_class = self.get_rect_class(rect_type)
-            if direction == "left":
+            if street_index == 0:
                 previous_rects_width += rect_class.width
                 x = screen_rect_size - previous_rects_width
                 y = screen_rect_size - screen_rect_size / 16 * 2
-            elif direction == "up":
+            elif street_index == 1:
                 previous_rects_height += rect_class.width
                 x = 0
                 y = screen_rect_size - previous_rects_height
-            elif direction == "right":
+            elif street_index == 2:
                 x = previous_rects_width
                 y = 0
                 previous_rects_width += rect_class.width
-            elif direction == "bottom":
+            elif street_index == 3:
                 x = screen_rect_size - previous_rects_width
                 y = previous_rects_height
                 previous_rects_height += rect_class.width
@@ -46,22 +43,19 @@ class Board(TextureGroup):
             if counter == 10:
                 previous_rects_width = rect_class.width
                 previous_rects_height = rect_class.height
-                direction, rotation_degrees = self.get_direction(direction)
+                street_index += 1
+                rotation_degrees, house_price = self.street_data(street_index)
                 counter = 0
             counter += 1
 
-    def get_direction(self, direction):
-        ds = {
-            "left": "up",
-            "up": "right",
-            "right": "bottom"
-        }
+    def street_data(self, street_index):
         rot = {
-            "left": 270,
-            "up": 180,
-            "right": 90
+            1: 270,
+            2: 180,
+            3: 90
         }
-        return ds[direction], rot[direction]
+        house_price = street_index * 50
+        return rot[street_index], house_price
 
     @staticmethod
     def get_rect_class(rect_type):
