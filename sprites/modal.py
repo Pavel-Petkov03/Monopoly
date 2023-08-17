@@ -128,6 +128,8 @@ class GenericMapCardModal(Modal):
         self.map_card_state = map_card_state
         self.renderer_state = renderer_state
         self.current_player = current_player
+        self.yes_button_action_class = None
+        self.ok_button_action_class = None
 
         super().__init__()
         self.map_card = MapCard(
@@ -140,8 +142,6 @@ class GenericMapCardModal(Modal):
         )
         self.add([self.map_card])
 
-
-
     def get_yes_button(self):
         return Button(
             width_and_height_tuple=(self.width / 4, self.height / 12),
@@ -153,8 +153,9 @@ class GenericMapCardModal(Modal):
             hover_color="yellow",
             inherit_x=self.x,
             inherit_y=self.y,
-            action_class=GenericMapCardBuyAction(self.renderer_state, self.map_card_state, self.current_player)
+            action_class=self.yes_button_action_class(self.renderer_state, self.map_card_state, self.current_player)
         )
+
     def get_no_button(self):
         return Button(
             width_and_height_tuple=(self.width / 4, self.height / 12),
@@ -167,6 +168,7 @@ class GenericMapCardModal(Modal):
             inherit_x=self.x,
             inherit_y=self.y
         )
+
     def get_ok_button(self):
         return Button(
             width_and_height_tuple=(self.width / 4, self.height / 12),
@@ -174,33 +176,53 @@ class GenericMapCardModal(Modal):
             text="Ок",
             text_size=20,
             text_color="black",
-            blit_pos=(self.surface.get_width() - self.width / 4, self.surface.get_height() - self.height / 12),
+            blit_pos=(self.surface.get_width() / 2 - self.width / 4 / 2, self.surface.get_height() - self.height / 12),
             hover_color="yellow",
             inherit_x=self.x,
-            inherit_y=self.y
+            inherit_y=self.y,
+            action_class=self.ok_button_action_class(self.renderer_state, self.map_card_state, self.current_player)
         )
-
-
 
     def blit(self, window):
         for sprite in self.sprites():
             sprite.blit(self.surface)
         super().blit(window)
 
+    def set_header(self, header):
+        self.create_text_and_blit(
+            self.surface,
+            header,
+            30,
+            "white",
+            (self.width / 2, self.height / 10)
+        )
+
 
 class BuyGenericMapCardModal(GenericMapCardModal):
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.add([self.get_yes_button(),self.get_no_button()])
-        self.create_text_and_blit(self.surface, f"Искате ли да купите този имот за {map_card_state.price} $", 30,
-                                  "white",
-                                  (self.width / 2, self.height / 10))
+    def __init__(self, renderer, map_card_state, current_player):
+        super().__init__(renderer, map_card_state, current_player)
+        self.yes_button_action_class = GenericMapCardBuyAction
+        self.add([self.get_yes_button(), self.get_no_button()])
+        self.set_header(f"Искате ли да купите този имот за {self.map_card_state.price} $")
+
 
 class ShowOwnerPropertyMapCardModal(GenericMapCardModal):
-    def __init__(self, *args):
-        super().__init__(*args)
+    def __init__(self, renderer, map_card_state, current_player):
+        super().__init__(renderer, map_card_state, current_player)
+        self.add([self.get_ok_button()])
+        self.set_header(f"Добре дошъл в твоят имот {current_player.name}")
 
 
+class BuildHouseOnOwnerPropertyMapCardModal(GenericMapCardModal):
+    def __init__(self, renderer, map_card_state, current_player):
+        super().__init__(renderer, map_card_state, current_player)
+        self.add([self.get_yes_button(), self.get_no_button()])
+        self.set_header(f"Искате ли да построите къща на този имот за {self.map_card_state.price} $")
 
+class PayToOwnerMapCardModal(GenericMapCardModal):
+    def __init__(self,renderer, map_card_state, current_player):
+        super().__init__(renderer, map_card_state, current_player)
+        self.add([self.get_ok_button()])
+        self.set_header(f"Имотът принадлежи на {current_player.name} и престоят в него струва {map_card_state.calculate_current_price(current_player)} $")
 
 
