@@ -12,10 +12,9 @@ GAME_NAME = "Monopoly"
 pygame.display.set_caption(GAME_NAME)
 BASE_DIR = os.path.dirname(__file__)
 
-neighborhood_count_list = [2, 3, 3, 3, 3, 3, 3, 2]
-
-neighborhoods = {str(i + 1): Neighborhood(i + 1, neighborhood_count_list[i]) for i in
-                 range(len(neighborhood_count_list))}
+neighborhoods_count = 8
+neighborhoods = {str(i + 1): Neighborhood(i + 1) for i in
+                 range(neighborhoods_count)}
 border_data = [
     {
         "rect_type": "corner",

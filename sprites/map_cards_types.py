@@ -1,8 +1,11 @@
 import pygame
 
+from modals.generic_map_card.show_owner_property import ShowOwnerPropertyMapCardModal
+from modals.generic_map_card.build_house import BuildHouseOnOwnerPropertyMapCardModal
+from modals.generic_map_card.buy import BuyGenericMapCardModal
+from modals.generic_map_card.pay_to_owner import PayToOwnerMapCardModal
 from sprites.base_map_card import BaseMapCard
-from sprites.modal import GenericMapCardModal, ShowOwnerPropertyMapCardModal, BuyGenericMapCardModal, \
-    BuildHouseOnOwnerPropertyMapCardModal, PayToOwnerMapCardModal
+
 from vars import screen_rect_size, neighborhoods
 
 
@@ -18,8 +21,8 @@ class GenericMapCard(BaseMapCard):
         self.neighborhood = neighborhoods[self.neighborhood]
         self.neighborhood.add_generic_map_cards(self)
 
-    def calculate_current_price(self, current_player):
-        if self.neighborhood.check_all_map_cards_have_same_owner(current_player):
+    def calculate_current_price(self):
+        if self.neighborhood.check_all_map_cards_have_same_owner(self.owner):
             return self.price * 2
         return self.price_dict[self.houses]
 
@@ -38,7 +41,7 @@ class GenericMapCard(BaseMapCard):
     
     def get_proper_modal(self, current_player, modal_data):
         if current_player == self.owner:
-            if self.neighborhood.all_map_cards_available() and self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(
+            if self.neighborhood.check_all_map_cards_have_same_owner(current_player) and self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(
                     self):
                 modal = BuildHouseOnOwnerPropertyMapCardModal(*modal_data)
             else:
