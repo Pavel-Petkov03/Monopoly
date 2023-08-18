@@ -20,6 +20,8 @@ class GenericMapCard(BaseMapCard):
         self.houses = 0
         self.neighborhood = neighborhoods[self.neighborhood]
         self.neighborhood.add_generic_map_cards(self)
+        self.house_image = self.get_house_image()
+
 
     def calculate_current_price(self):
         if self.neighborhood.check_all_map_cards_have_same_owner(self.owner):
@@ -28,8 +30,25 @@ class GenericMapCard(BaseMapCard):
 
     def add_additional_data(self):
         pygame.draw.rect(self.image, self.color, self.top_inner_rect)
+        self.draw_houses()
         self.set_caption(self.caption, self.width / 5, self.width / 2, self.height / 3)
         self.set_caption(f"${self.price}", self.width / 6, self.width / 2, self.height * 7 / 8)
+
+    def draw_houses(self):
+        if self.houses == 4:
+            current_location_image = "images/board/hotel.png"
+        else:
+            current_x = 0
+            for i in range(self.houses):
+                self.image.blit(self.house_image, (current_x, self.top_inner_rect.height / 2))
+                current_x += self.house_image.get_width()
+    def get_house_image(self):
+        image = pygame.image.load("images/board/house.png")
+        return pygame.transform.scale(image, (self.top_inner_rect.width / 4, self.top_inner_rect.height / 2))
+    
+    def get_hotel_image(self):
+        image = pygame.image.load("images/board/hotel.png")
+        return pygame.transform.scale(image, (self.top_inner_rect.width / 2, self.top_inner_rect.height / 2))
 
     def update(self, *args, **kwargs) -> None:
         if self.new_player_on and kwargs["state"].players[0] in self.players:
@@ -41,8 +60,8 @@ class GenericMapCard(BaseMapCard):
     
     def get_proper_modal(self, current_player, modal_data):
         if current_player == self.owner:
-            if self.neighborhood.check_all_map_cards_have_same_owner(current_player) and self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(
-                    self):
+            if self.neighborhood.check_all_map_cards_have_same_owner(current_player) and (self.neighborhood.houses_same_count() or self.neighborhood.check_other_map_cards_have_more_houses_than_current_map_card(
+                    self)):
                 modal = BuildHouseOnOwnerPropertyMapCardModal(*modal_data)
             else:
                 modal = ShowOwnerPropertyMapCardModal(*modal_data)

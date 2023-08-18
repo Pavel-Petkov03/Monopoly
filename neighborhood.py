@@ -21,5 +21,5 @@ class Neighborhood:
         return True
 
     def check_other_map_cards_have_more_houses_than_current_map_card(self, map_card):
-        f = [m for m in self.generic_map_cards if m.houses < map_card.houses]
-        return len(f) == len(self.generic_map_cards) - 1
+        f = [m for m in self.generic_map_cards if m.houses > map_card.houses]
+        return len(f) >= 1
