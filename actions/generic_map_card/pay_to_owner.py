@@ -1,7 +1,8 @@
-from actions.base_action import Action
+
+from actions.generic_map_card.base_action import GenericMapCardAction
 
 
-class GenericMapCardPayToOwnerAction(Action):
+class GenericMapCardPayToOwnerAction(GenericMapCardAction):
     def __init__(self, renderer, map_card_state, current_player):
         super().__init__(renderer, map_card_state, current_player)
 

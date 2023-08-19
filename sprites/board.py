@@ -4,8 +4,9 @@ from vars import border_data, screen_rect_size
 
 
 class Board(TextureGroup):
-    def __init__(self):
+    def __init__(self, renderer):
         super().__init__()
+        self.renderer = renderer
         self.initialise_board()
 
     def initialise_board(self):
@@ -37,7 +38,7 @@ class Board(TextureGroup):
                 x = screen_rect_size - previous_rects_width
                 y = previous_rects_height
                 previous_rects_height += rect_class.width
-            obj = rect_class(x, y, **entry)
+            obj = rect_class(x, y, self.renderer,  **entry)
             self.add([obj])
 
             if counter == 10:
@@ -47,6 +48,12 @@ class Board(TextureGroup):
                 rotation_degrees, house_price = self.street_data(street_index)
                 counter = 0
             counter += 1
+
+    def blit_player_to_generic_map_card(self, current_player):
+        self.sprites()[current_player.board_index].players[current_player] = current_player.piece_image
+
+    def remove_player_from_current_position(self, current_player):
+        self.sprites()[current_player.board_index].players.pop(current_player)
 
     def street_data(self, street_index):
         rot = {

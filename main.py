@@ -22,7 +22,7 @@ class Game:
             self.set_background()
             for texture in self.renderer.textures:
                 texture.blit(screen)
-                texture.update(**texture.update_kwargs)
+                texture.update()
             pygame.display.flip()
             self.clock.tick(self.fps)
 

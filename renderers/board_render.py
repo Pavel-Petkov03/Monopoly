@@ -9,8 +9,8 @@ from sprites.dice import Dices
 class BoardRenderer(Renderer):
     def __init__(self, players):
         super().__init__()
-        self.board = Board()
-        self.dices = Dices()
+        self.board = Board(self)
+
         player1 = Player("pavkata", "car.png")
         player2 = Player("pavkata", "dog.png")
         self.board.sprites()[0].players = {
@@ -21,14 +21,9 @@ class BoardRenderer(Renderer):
         }
         self.players = deque([player1, player2])
         self.current_player = self.players[0]
+        self.dices = Dices(self)
         self.textures = [
             self.board,
             self.dices
         ]
-        self.load_kwargs()
 
-    def load_kwargs(self):
-        for texture in self.textures:
-            texture.update_kwargs = {
-                "state": self
-            }

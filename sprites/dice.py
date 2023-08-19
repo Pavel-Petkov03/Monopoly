@@ -2,9 +2,10 @@ import random
 import os
 import pygame
 
+from animations.animation_frame import DiceAnimationFrame, PlayerMovementAnimationFrame
 from animations.dice_animation import DiceAnimation
-from events.custom_types import ON_BOX
-from events.dice_click import DiceClickEvent
+from events.custom_types import ON_BOX, ON_PLAYER_MOVEMENT
+from events.dice_click import DiceClickEvent, PlayerMovementEvent
 from sprites.texture import Texture
 from vars import screen_rect_size, BASE_DIR
 
@@ -50,56 +51,24 @@ class Dice(Texture):
 
 class Dices(Texture):
 
-    def __init__(self):
+    def __init__(self, render_state):
         super().__init__()
         dice1 = Dice(screen_rect_size / 2, screen_rect_size / 2)
         dice2 = Dice(screen_rect_size / 2 + dice1.width, screen_rect_size / 2)
-        self.on_display = False
-        self.animation_on = True
-        self.start = None
-        self.end = None
+        self.thrown = 0
+        self.render_state = render_state
         self.dices = (dice1, dice2)
-
+        self.dice_animation_frame = DiceAnimationFrame(1000, self)
+        self.player_movement_animation_frame = PlayerMovementAnimationFrame(1000, render_state, self)
         self.event_list = [
-            DiceClickEvent
+            DiceClickEvent,
+            PlayerMovementEvent
         ]
 
-    def update(self, *args, **kwargs):
-
-        if self.on_display:
-            if self.animation_on:
-                if self.start <= self.end:
-                    self.start = pygame.time.get_ticks()
-                    for sprite in self.dices:
-                        sprite.on_animation()
-
-                else:
-                    self.animation_on = False
-            else:
-                renderer_state = kwargs["state"]
-                board_sprites = renderer_state.board.sprites()
-                players = renderer_state.players
-                thrown = 0
-                for sprite in self.dices:
-                    thrown += sprite.calculate_num()
-                current_player = players[0]
-                current_board_player_index = current_player.board_index
-                board_sprites[current_board_player_index].players.pop(current_player)
-                new_index = thrown + current_board_player_index
-                if new_index >= 39:
-                    new_index -= 39
-                current_player.board_index = new_index
-                board_sprites[new_index].add_player(current_player)
-                pygame.event.post(pygame.event.Event(ON_BOX))
-                self.on_display = False
-                self.animation_on = True
-
-    def on_click(self):
-        self.on_display = True
-        self.start = pygame.time.get_ticks()
-        self.end = pygame.time.get_ticks() + 1000
+    def update(self):
+        self.dice_animation_frame.execute()
+        self.player_movement_animation_frame.execute()
 
     def blit(self, window):
-        if not self.on_display and self.animation_on:
-            for dice in self.dices:
-                dice.blit(window)
+        for dice in self.dices:
+            dice.blit(window)
