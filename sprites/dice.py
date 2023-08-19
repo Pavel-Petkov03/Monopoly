@@ -5,6 +5,7 @@ import pygame
 from events.custom_types import ON_BOX
 from events.dice_click import DiceClickEvent
 from sprites.texture import Texture, TextureGroup
+from t import DiceAnimation
 from vars import screen_rect_size, BASE_DIR
 
 
@@ -23,6 +24,7 @@ class Dice(Texture):
         self.image.fill("white")
         self.current_image = self.animation_images[5]
         self.calculated_dice = None
+        self.dice_animation_class = DiceAnimation(x, y, self.width, self.height)
 
     def load_images(self, location_array):
         res = []
@@ -33,9 +35,7 @@ class Dice(Texture):
         return res
 
     def on_animation(self):
-        index = random.randint(0, 5)
-        self.image.fill("white")
-        self.current_image = self.animation_images[index]
+        self.dice_animation_class.animate()
 
     def blit(self, surface):
         surface.blit(self.image, (self.x, self.y))
@@ -71,6 +71,7 @@ class Dices(Texture):
                     self.start = pygame.time.get_ticks()
                     for sprite in self.dices:
                         sprite.on_animation()
+                    return
                 else:
                     self.animation_on = False
             else:
@@ -100,5 +101,6 @@ class Dices(Texture):
         self.end = pygame.time.get_ticks() + 1000
 
     def blit(self, window):
-        for dice in self.dices:
-            dice.blit(window)
+        if not self.on_display and self.animation_on:
+            for dice in self.dices:
+                dice.blit(window)

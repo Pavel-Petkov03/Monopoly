@@ -1,88 +1,87 @@
 import pygame
-from pygame.locals import *
-from OpenGL.GL import *
-from OpenGL.GLU import *
+import numpy as np
+from math import *
 
-vertices = (
-    (1, -1, -1),
-    (1, 1, -1),
-    (-1, 1, -1),
-    (-1, -1, -1),
-    (1, -1, 1),
-    (1, 1, 1),
-    (-1, -1, 1),
-    (-1, 1, 1)
-)
-edges = (
-    (0, 1),
-    (0, 3),
-    (0, 4),
-    (2, 1),
-    (2, 3),
-    (2, 7),
-    (6, 3),
-    (6, 4),
-    (6, 7),
-    (5, 1),
-    (5, 4),
-    (5, 7)
-)
-colors = (
-    (1, 0, 0),
-    (0, 1, 0),
-    (0, 0, 1),
-    (0, 1, 0),
-    (1, 1, 1),
-    (0, 1, 1),
-    (1, 0, 0),
-    (0, 1, 0),
-    (0, 0, 1),
-    (1, 0, 0),
-    (1, 1, 1),
-    (0, 1, 1),
-)
-surfaces = (
-    (0, 1, 2, 3),
-    (3, 2, 7, 6),
-    (6, 7, 5, 4),
-    (4, 5, 1, 0),
-    (1, 5, 7, 2),
-    (4, 0, 3, 6)
-)
+from vars import screen
 
 
-def Cube():
-    glColor3f(1.0, 1.0, 1.0)  # Set the color to white for faces
-    glBegin(GL_QUADS)
-    for surface in surfaces:
-        for vertex in surface:
-            glVertex3fv(vertices[vertex])
-    glEnd()
-    glColor3f(1.0, 0.0, 0.0)
-    glBegin(GL_LINES)
 
-    for edge in edges:
-        for vertex in edge:
-            glVertex3fv(vertices[vertex])
-    glEnd()
+class Rotation:
 
+    def __init__(self):
+        self.angle = 0.0
 
-def main():
-    pygame.init()
-    display = (1280, 720)
-    pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
-    gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
-    glTranslatef(0.0, 0.0, -5)
+    def rotate_z(self):
+        return np.matrix([
+            [cos(self.angle), -sin(self.angle), 0],
+            [sin(self.angle), cos(self.angle), 0],
+            [0, 0, 1],
+        ])
 
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                exit()
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        Cube()
-        glRotatef(2.5, 1, 1, 0.5)
-        pygame.display.flip()
-        pygame.time.wait(10)
+    def rotate_y(self):
+        return np.matrix([
+            [cos(self.angle), 0, sin(self.angle)],
+            [0, 1, 0],
+            [-sin(self.angle), 0, cos(self.angle)],
+        ])
+
+    def rotate_x(self):
+        return np.matrix([
+            [1, 0, 0],
+            [0, cos(self.angle), -sin(self.angle)],
+            [0, sin(self.angle), cos(self.angle)],
+        ])
 
 
-main()
+class DiceAnimation(Rotation):
+    vertecies = (
+        [-1, -1, 1],
+        [1, -1, 1],
+        [1, 1, 1],
+        [-1, 1, 1],
+        [-1, -1, -1],
+        [1, -1, -1],
+        [1, 1, -1],
+        [-1, 1, -1]
+    )
+
+    quads = (
+        (0, 1, 2, 3),
+        (4, 5, 6, 7),
+        (0, 1, 5, 4),
+        (2, 3, 7, 6),
+        (1, 2, 6, 5),
+        (0, 3, 7, 4)
+    )
+
+    def __init__(self, x, y, width, height):
+        super().__init__()
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.points = [np.matrix(ar) for ar in self.vertecies]
+        self.projected_points = [[n, n] for n in range(len(self.points))]
+        self.projection_matrix = [[1, 0, 0], [0, 1, 0], [0, 0, 0]]
+
+    def animate(self):
+        self.project_points()
+        self.draw_polygon()
+        self.angle += 0.1
+
+    def project_points(self):
+        for i, point in enumerate(self.points):
+            rotated2d = np.dot(self.rotate_z(), point.reshape((3, 1)))
+            rotated2d = np.dot(self.rotate_y(), rotated2d)
+            rotated2d = np.dot(self.rotate_x(), rotated2d)
+            projected2d = np.dot(self.projection_matrix, rotated2d)
+
+            x = int(projected2d[0][0] * self.width) + self.x
+            y = int(projected2d[1][0] * self.height) + self.y
+            self.projected_points[i] = [x, y]
+            pygame.draw.circle(screen, "black", (x, y), 5)
+
+    def draw_polygon(self):
+        for i, quad in enumerate(self.quads):
+            all_projected_points = [self.projected_points[i] for i in quad]
+            pygame.draw.polygon(screen, "white", all_projected_points)

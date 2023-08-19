@@ -23,7 +23,7 @@ class Game:
             for texture in self.renderer.textures:
                 texture.blit(screen)
                 texture.update(**texture.update_kwargs)
-            pygame.display.update()
+            pygame.display.flip()
             self.clock.tick(self.fps)
 
     @staticmethod

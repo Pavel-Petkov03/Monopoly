@@ -1,7 +1,6 @@
 import pygame
 import ctypes
 import os
-
 from neighborhood import Neighborhood
 
 user32 = ctypes.windll.user32
