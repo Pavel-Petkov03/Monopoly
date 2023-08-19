@@ -2,10 +2,10 @@ import random
 import os
 import pygame
 
+from animations.dice_animation import DiceAnimation
 from events.custom_types import ON_BOX
 from events.dice_click import DiceClickEvent
-from sprites.texture import Texture, TextureGroup
-from t import DiceAnimation
+from sprites.texture import Texture
 from vars import screen_rect_size, BASE_DIR
 
 
@@ -16,13 +16,13 @@ class Dice(Texture):
         super().__init__()
         self.x = x
         self.y = y
-        self.width = screen_rect_size / 12
-        self.height = screen_rect_size / 12
+        self.width = screen_rect_size / 24
+        self.height = screen_rect_size / 24
         self.animation_images = self.load_images(self.ANIMATION_IMAGES)
         self.image = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
         self.rect = pygame.Rect(x, y, self.width, self.height)
         self.image.fill("white")
-        self.current_image = self.animation_images[5]
+        self.current_image = self.animation_images[1]
         self.calculated_dice = None
         self.dice_animation_class = DiceAnimation(x, y, self.width, self.height)
 
@@ -38,11 +38,12 @@ class Dice(Texture):
         self.dice_animation_class.animate()
 
     def blit(self, surface):
+        self.image.fill("white")
+        self.image.blit(self.current_image, (0,0))
         surface.blit(self.image, (self.x, self.y))
 
     def calculate_num(self):
         self.calculated_dice = random.randint(1, 6)
-        print(self.calculated_dice)
         self.current_image = self.animation_images[self.calculated_dice - 1]
         return self.calculated_dice
 
@@ -71,7 +72,7 @@ class Dices(Texture):
                     self.start = pygame.time.get_ticks()
                     for sprite in self.dices:
                         sprite.on_animation()
-                    return
+
                 else:
                     self.animation_on = False
             else:
@@ -92,8 +93,6 @@ class Dices(Texture):
                 pygame.event.post(pygame.event.Event(ON_BOX))
                 self.on_display = False
                 self.animation_on = True
-        for sprite in self.dices:
-            sprite.image.blit(sprite.current_image, (0, 0))
 
     def on_click(self):
         self.on_display = True

@@ -5,7 +5,6 @@ from math import *
 from vars import screen
 
 
-
 class Rotation:
 
     def __init__(self):
@@ -54,6 +53,21 @@ class DiceAnimation(Rotation):
         (0, 3, 7, 4)
     )
 
+    edges = (
+        (0, 1),
+        (0, 3),
+        (0, 4),
+        (1, 2),
+        (1, 5),
+        (2, 3),
+        (2, 6),
+        (3, 7),
+        (4, 5),
+        (4, 7),
+        (5, 6),
+        (6, 7)
+    )
+
     def __init__(self, x, y, width, height):
         super().__init__()
         self.x = x
@@ -67,7 +81,9 @@ class DiceAnimation(Rotation):
     def animate(self):
         self.project_points()
         self.draw_polygon()
-        self.angle += 0.1
+        self.draw_edges()
+
+        self.angle += 0.5
 
     def project_points(self):
         for i, point in enumerate(self.points):
@@ -79,9 +95,16 @@ class DiceAnimation(Rotation):
             x = int(projected2d[0][0] * self.width) + self.x
             y = int(projected2d[1][0] * self.height) + self.y
             self.projected_points[i] = [x, y]
-            pygame.draw.circle(screen, "black", (x, y), 5)
 
     def draw_polygon(self):
         for i, quad in enumerate(self.quads):
             all_projected_points = [self.projected_points[i] for i in quad]
             pygame.draw.polygon(screen, "white", all_projected_points)
+
+    def draw_edges(self):
+        for edge in self.edges:
+            pygame.draw.line(screen,
+                             "black",
+                             (self.projected_points[edge[0]][0], self.projected_points[edge[0]][1]),
+                             (self.projected_points[edge[1]][0], self.projected_points[edge[1]][1])
+             )
