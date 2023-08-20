@@ -26,4 +26,4 @@ class PlayerMovementEvent(Event):
 
     @staticmethod
     def execute(texture):
-        texture.player_movement_animation_frame.start()
+        texture.move_player_animation.start()

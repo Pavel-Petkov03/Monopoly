@@ -1,5 +1,5 @@
 from actions.generic_map_card.remove_modal import RemoveModalAction
-from modals.base_modal import Modal
+from sprites.modals.base_modal import Modal
 from sprites.button import Button
 from sprites.map_card import GenericMapCard
 

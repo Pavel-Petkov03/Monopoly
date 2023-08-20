@@ -1,5 +1,5 @@
 from actions.generic_map_card.remove_modal import RemoveModalAction
-from modals.generic_map_card.base import GenericMapCardModal
+from sprites.modals.generic_map_card.base import GenericMapCardModal
 
 
 class ShowOwnerPropertyMapCardModal(GenericMapCardModal):

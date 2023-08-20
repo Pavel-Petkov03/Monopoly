@@ -22,6 +22,7 @@ class BaseMapCard(Texture):
         self.price_dict = price_dict
         self.rotation = rotation
         self.players = {}
+        self.temporary_players = {}
         self.house_price = house_price
         self.top_inner_rect = pygame.Rect(0, 0, self.width, self.height / 4)
         self.event_list = [
@@ -39,11 +40,23 @@ class BaseMapCard(Texture):
         scaled_height = self.height / (len(self.players) + 1)
         x = self.top_inner_rect.x
         y = self.top_inner_rect.y
-        for player in self.players:
+        concatenated_dict = {**self.players, **self.temporary_players}
+        for player in concatenated_dict:
             image = player.piece_image
             image = pygame.transform.scale(image, (scaled_width, scaled_height))
             y += scaled_height
             self.image.blit(image, (x, y))
+
+    def remove_player_from_all_players(self, player):
+        self.players.pop(player)
+    def remove_player_from_temporary(self, player):
+        self.temporary_players.pop(player)
+
+    def add_player_to_all_players(self, player):
+        self.players[player] = player.piece_image
+
+    def add_player_to_temporary(self, player):
+        self.temporary_players[player] = player.piece_image
 
     def add_additional_data(self):
         pass

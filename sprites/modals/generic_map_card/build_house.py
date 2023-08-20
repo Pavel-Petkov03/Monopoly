@@ -1,5 +1,5 @@
 from actions.generic_map_card.build_house import GenericMapCardBuildHouseOnOwnerPropertyAction
-from modals.generic_map_card.base import GenericMapCardModal
+from sprites.modals.generic_map_card.base import GenericMapCardModal
 
 
 class BuildHouseOnOwnerPropertyMapCardModal(GenericMapCardModal):

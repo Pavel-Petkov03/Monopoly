@@ -1,9 +1,9 @@
 import pygame
 
-from modals.generic_map_card.show_owner_property import ShowOwnerPropertyMapCardModal
-from modals.generic_map_card.build_house import BuildHouseOnOwnerPropertyMapCardModal
-from modals.generic_map_card.buy import BuyGenericMapCardModal
-from modals.generic_map_card.pay_to_owner import PayToOwnerMapCardModal
+from sprites.modals.generic_map_card.show_owner_property import ShowOwnerPropertyMapCardModal
+from sprites.modals.generic_map_card.build_house import BuildHouseOnOwnerPropertyMapCardModal
+from sprites.modals.generic_map_card.buy import BuyGenericMapCardModal
+from sprites.modals.generic_map_card.pay_to_owner import PayToOwnerMapCardModal
 from sprites.base_map_card import BaseMapCard
 
 from vars import screen_rect_size, neighborhoods

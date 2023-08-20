@@ -1,5 +1,5 @@
 from actions.generic_map_card.pay_to_owner import GenericMapCardPayToOwnerAction
-from modals.generic_map_card.base import GenericMapCardModal
+from sprites.modals.generic_map_card.base import GenericMapCardModal
 
 
 class PayToOwnerMapCardModal(GenericMapCardModal):

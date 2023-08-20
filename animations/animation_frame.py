@@ -1,7 +1,5 @@
 import pygame
-
-from actions.dice.move_player import MovePlayer
-from events.custom_types import ON_PLAYER_MOVEMENT, ON_BOX
+from events.custom_types import ON_PLAYER_MOVEMENT
 
 
 class AnimationFrame:
@@ -49,14 +47,4 @@ class DiceAnimationFrame(AnimationFrame):
         pygame.event.post(pygame.event.Event(ON_PLAYER_MOVEMENT))
 
 
-class PlayerMovementAnimationFrame(AnimationFrame):
-    def __init__(self, delay, renderer, dices):
-        super().__init__(delay)
 
-        self.on_animation_class = MovePlayer(renderer, dices)
-
-    def on_animation_func(self, **kwargs):
-        self.on_animation_class.execute()
-
-    def clean_up_function(self, **kwargs):
-        pygame.event.post(pygame.event.Event(ON_BOX))

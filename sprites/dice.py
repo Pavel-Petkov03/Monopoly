@@ -2,9 +2,9 @@ import random
 import os
 import pygame
 
-from animations.animation_frame import DiceAnimationFrame, PlayerMovementAnimationFrame
+from actions.dice.move_player import MovePlayer
+from animations.animation_frame import DiceAnimationFrame
 from animations.dice_animation import DiceAnimation
-from events.custom_types import ON_BOX, ON_PLAYER_MOVEMENT
 from events.dice_click import DiceClickEvent, PlayerMovementEvent
 from sprites.texture import Texture
 from vars import screen_rect_size, BASE_DIR
@@ -59,7 +59,7 @@ class Dices(Texture):
         self.render_state = render_state
         self.dices = (dice1, dice2)
         self.dice_animation_frame = DiceAnimationFrame(1000, self)
-        self.player_movement_animation_frame = PlayerMovementAnimationFrame(1000, render_state, self)
+        self.move_player_animation = MovePlayer(render_state, self)
         self.event_list = [
             DiceClickEvent,
             PlayerMovementEvent
@@ -67,7 +67,7 @@ class Dices(Texture):
 
     def update(self):
         self.dice_animation_frame.execute()
-        self.player_movement_animation_frame.execute()
+        self.move_player_animation.execute()
 
     def blit(self, window):
         for dice in self.dices:
