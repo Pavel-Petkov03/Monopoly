@@ -37,15 +37,16 @@ class BaseMapCard(Texture):
 
     def load_pieces(self):
         scaled_width = self.top_inner_rect.width
-        scaled_height = self.height / (len(self.players) + 1)
+        concatenated_dict = {**self.temporary_players, **self.players}
+        scaled_height = self.height / (len(concatenated_dict) + 1)
         x = self.top_inner_rect.x
         y = self.top_inner_rect.y
-        concatenated_dict = {**self.players, **self.temporary_players}
         for player in concatenated_dict:
             image = player.piece_image
             image = pygame.transform.scale(image, (scaled_width, scaled_height))
             y += scaled_height
             self.image.blit(image, (x, y))
+
 
     def remove_player_from_all_players(self, player):
         self.players.pop(player)
@@ -90,7 +91,4 @@ class BaseMapCard(Texture):
 
         window.blit(rotated_image, rect)
 
-    def add_player(self, player):
-        self.players[player] = player.piece_image
-        self.exec_events()
 
