@@ -89,6 +89,16 @@ class CornerMapCard(BaseMapCard):
         self.image_load(0)
 
 
+
+
+class SideImagePack:
+    def __init__(self):
+        self.side_image_map_card = []
+
+    def add_side_image(self, side_image):
+        self.side_image_map_card.append(side_image)
+
+
 class SideImageMapCard(BaseMapCard):
     width = screen_rect_size / 12
     height = screen_rect_size / 16 * 2
@@ -101,3 +111,6 @@ class SideImageMapCard(BaseMapCard):
         self.set_caption(self.caption, self.width / 5, self.width / 2, self.height / 6)
         if self.price:
             self.set_caption(f"${self.price}", self.width / 6, self.width / 2, self.height * 7 / 8)
+
+    def update(self, *args, **kwargs) -> None:
+        pass

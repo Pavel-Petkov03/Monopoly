@@ -37,7 +37,8 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Обществен Трезор",
-        "inside_image_path": "treasure.png"
+        "inside_image_path": "treasure.png",
+        "side_image_type": 'play_card'
     },
     {
         "rect_type": 'generic',
@@ -58,6 +59,7 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Данък",
+        "side_image_type": "pay_card",
         "price": "400",
         "inside_image_path": "treasure.png"
     },
@@ -65,7 +67,8 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Гара София",
         "price": "200",
-        "inside_image_path": "station.png"
+        "inside_image_path": "station.png",
+        "side_image_type": 'station',
     },
     {
         "rect_type": 'generic',
@@ -85,7 +88,8 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Шанс",
-        "inside_image_path": "chance.png"
+        "inside_image_path": "chance.png",
+        "side_image_type": 'play_card'
     },
     {
         "rect_type": 'generic',
@@ -140,7 +144,8 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "НЕК",
         "price": "120",
-        "inside_image_path": "lamp.png"
+        "inside_image_path": "lamp.png",
+        "side_image_type" : "public_services"
     },
     {
         "rect_type": 'generic',
@@ -174,7 +179,8 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Гара Пловдив",
         "price": "200",
-        "inside_image_path": "station.png"
+        "inside_image_path": "station.png",
+        "side_image_type": 'station',
     },
     {
         "rect_type": 'generic',
@@ -194,8 +200,8 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Обществен трезор",
-        "price": "200",
-        "inside_image_path": "treasure.png"
+        "inside_image_path": "treasure.png",
+        "side_image_type": 'play_card'
     },
     {
         "rect_type": 'generic',
@@ -249,7 +255,8 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Шанс",
-        "inside_image_path": "chance.png"
+        "inside_image_path": "chance.png",
+        "side_image_type": 'play_card'
     }, {
         "rect_type": 'generic',
         "caption": "ул Шипка",
@@ -284,7 +291,8 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Гара Варна",
         "price": "200",
-        "inside_image_path": "station.png"
+        "inside_image_path": "station.png",
+        "side_image_type": 'station',
     },
     {
         "rect_type": 'generic',
@@ -320,7 +328,9 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "ВИК",
-        "inside_image_path": "sink.png"
+        "inside_image_path": "sink.png",
+        "side_image_type": 'public_services'
+
     },
     {
         "rect_type": 'generic',
@@ -374,7 +384,8 @@ border_data = [
     {
         "rect_type": 'side_image',
         "caption": "Обществен Трезор",
-        "inside_image_path": "treasure.png"
+        "inside_image_path": "treasure.png",
+        "side_image_type": 'play_card'
     },
     {
         "rect_type": 'generic',
@@ -395,12 +406,14 @@ border_data = [
         "rect_type": 'side_image',
         "caption": "Гара Бургас",
         "price": "200",
-        "inside_image_path": "station.png"
+        "inside_image_path": "station.png",
+        "side_image_type": 'station',
     },
     {
         "rect_type": 'side_image',
         "caption": "Шанс",
-        "inside_image_path": "chance.png"
+        "inside_image_path": "chance.png",
+        "side_image_type": 'play_card'
     },
     {
         "rect_type": 'generic',
