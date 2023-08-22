@@ -54,6 +54,7 @@ class SideImageMapCard(Texture):
         self.map_card_name = map_card_name
         self.surface = pygame.Surface((self.width, self.height))
         self.image_path = image_path
+        self.padding_counter = 0
         self.surface.fill("white")
 
     # def get_side_image_type(self):
@@ -62,20 +63,23 @@ class SideImageMapCard(Texture):
     #     }
     #     return ds[self.side_image_type]
 
-    def station(self):
-        padding_counter = self.surface.get_height() / 20
+    def header_data(self):
+        self.padding_counter = self.surface.get_height() / 20
         padding = self.surface.get_height() / 20
         self.create_text_and_blit(self.surface, self.map_card_name, 25, (0, 0, 0),
-                                  (self.surface.get_width() / 2, padding_counter))
-        padding_counter += padding
+                                  (self.surface.get_width() / 2, self.padding_counter))
+        self.padding_counter += padding
         image = self.load_image()
-        self.surface.blit(image, (self.surface.get_width() / 2, padding_counter))
-        for key, value in {"1" : "50"}.items():
+        self.surface.blit(image, (self.surface.get_width() / 2, self.padding_counter))
+
+    def station(self):
+
+        for key, value in {str(i): int(i) * 50 for i in range(1, 5)}.items():
             self.create_text_and_blit(self.surface, f"{f'Наем за {key}'}", 20, (0, 0, 0),
-                                          (self.width / 4, padding_counter))
+                                      (self.width / 4, self.padding_counter))
             self.create_text_and_blit(self.surface, f"{value} $", 20, (0, 0, 0),
-                                          (self.width * 3 / 4, padding_counter))
-            padding_counter += padding
+                                      (self.width * 3 / 4, self.padding_counter))
+            self.padding_counter += self.surface.get_height() / 20
 
     def chance(self):
         pass
@@ -85,8 +89,6 @@ class SideImageMapCard(Texture):
 
     def public_services(self):
         pass
-
-
 
     def load_image(self):
         image = pygame.image.load(self.image_path)
