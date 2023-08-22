@@ -77,13 +77,15 @@ class DiceAnimation(Rotation):
         self.points = [np.matrix(ar) for ar in self.vertecies]
         self.projected_points = [[n, n] for n in range(len(self.points))]
         self.projection_matrix = [[1, 0, 0], [0, 1, 0], [0, 0, 0]]
+        self.current_frame = int(self.angle % 360 / 60)
 
     def animate(self):
         self.project_points()
         self.draw_polygon()
         self.draw_edges()
 
-        self.angle += 0.5
+        self.angle += 1
+        self.current_frame = int(self.angle % 360 / 60)
 
     def project_points(self):
         for i, point in enumerate(self.points):
@@ -107,4 +109,4 @@ class DiceAnimation(Rotation):
                              "black",
                              (self.projected_points[edge[0]][0], self.projected_points[edge[0]][1]),
                              (self.projected_points[edge[1]][0], self.projected_points[edge[1]][1])
-             )
+                             )

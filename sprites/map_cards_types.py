@@ -21,6 +21,7 @@ class GenericMapCard(BaseMapCard):
         self.neighborhood = neighborhoods[self.neighborhood]
         self.neighborhood.add_generic_map_cards(self)
         self.house_image = self.get_house_image()
+        self.hotel_image = self.get_hotel_image()
         self.renderer = renderer
 
     def calculate_current_price(self):
@@ -36,7 +37,9 @@ class GenericMapCard(BaseMapCard):
 
     def draw_houses(self):
         if self.houses == 5:
-            current_location_image = "images/board/hotel.png"
+            x = self.top_inner_rect.width / 2 - self.hotel_image.get_width() / 2
+            self.image.blit(self.hotel_image, (x, self.top_inner_rect.height / 8))
+
         else:
             current_x = 0
             for i in range(self.houses):
@@ -49,7 +52,7 @@ class GenericMapCard(BaseMapCard):
 
     def get_hotel_image(self):
         image = pygame.image.load("images/board/hotel.png")
-        return pygame.transform.scale(image, (self.top_inner_rect.width / 2, self.top_inner_rect.height / 2))
+        return pygame.transform.scale(image, (self.top_inner_rect.width / 2, self.top_inner_rect.height))
 
     def update(self, *args, **kwargs) -> None:
         if self.new_player_on and self.renderer.current_player in self.players:

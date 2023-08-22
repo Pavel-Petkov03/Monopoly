@@ -36,8 +36,8 @@ class MovePlayer(Action):
 
     def end_index(self):
         new_index = self.dices.thrown + self.board_index
-        if new_index >= 39:
-            new_index -= 39
+        if new_index > 39:
+            new_index -= 40
         return new_index
 
     def check_end(self):
@@ -45,8 +45,8 @@ class MovePlayer(Action):
 
     def calculate_new_index(self):
         self.current_player.board_index += 1
-        if self.current_player.board_index >= 39:
-            self.current_player.board_index -= 39
+        if self.current_player.board_index > 39:
+            self.current_player.board_index -= 40
 
 
     def start(self):

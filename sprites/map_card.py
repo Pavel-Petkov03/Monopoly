@@ -43,3 +43,8 @@ class GenericMapCard(Texture):
 
     def blit(self, window):
         window.blit(self.surface, self.blit_pos)
+
+
+class SideImageMapCard(Texture):
+    def __init__(self):
+        super().__init__()
