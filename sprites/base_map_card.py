@@ -9,7 +9,7 @@ class BaseMapCard(Texture):
     height = 0
 
     def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None,
-                 price_dict=None, neighborhood=None, house_price=None, side_image_type=None):
+                 price_dict=None, neighborhood=None, house_price=None, side_image_type=None, rect_type=None):
         super().__init__()
         self.image = None
         self.x = x
@@ -26,6 +26,7 @@ class BaseMapCard(Texture):
         self.house_price = house_price
         self.top_inner_rect = pygame.Rect(0, 0, self.width, self.height / 4)
         self.side_image_type = side_image_type
+        self.rect_type = rect_type
         self.event_list = [
             MapCardEvent
         ]

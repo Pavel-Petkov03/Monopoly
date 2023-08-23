@@ -27,3 +27,5 @@ class BoardRenderer(Renderer):
             self.dices
         ]
 
+
+

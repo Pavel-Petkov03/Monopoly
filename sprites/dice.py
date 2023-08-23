@@ -69,6 +69,9 @@ class Dices(Texture):
         self.dice_animation_frame.execute()
         self.move_player_animation.execute()
 
+    def dice_equal_sign(self):
+        return self.dices[0].calculated_dice == self.dices[1].calculated_dice
+
     def blit(self, window):
         for dice in self.dices:
             dice.blit(window)

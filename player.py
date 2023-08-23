@@ -13,6 +13,11 @@ class Player:
         self.piece_image_location = piece_image_location
         self.piece_image = pygame.image.load(os.path.join(BASE_DIR, "images", "pieces", self.piece_image_location))
         self.client = Client()
+        self.in_prison = False
+        self.prison_attempt_throw = 0
+        self.prison_cards = 0
+
+
 
 
 

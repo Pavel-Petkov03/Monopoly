@@ -23,7 +23,7 @@ class ChanceCard(Card):
     pass
 
 
-class GoToStartChanceCard(ChanceCard):
+class GoToStart(ChanceCard):
     def __init__(self):
         super().__init__("ПРОДЪЛЖЕТЕ ДО НАЧАЛО И (ПОЛУЧАВАТЕ 200)")
 
@@ -71,7 +71,7 @@ class GoToRedLast(ChanceCard):
                          )
 
     def exec(self, renderer: BoardRenderer):
-        renderer.dices.move_player_animation.get_fixed_place(2)
+        renderer.dices.move_player_animation.get_fixed_place(24)
 
 
 class FineForFastDriving(ChanceCard):
@@ -90,7 +90,7 @@ class GoToFirstPink(ChanceCard):
                          )
 
     def exec(self, renderer: BoardRenderer):
-        renderer.dices.move_player_animation.get_fixed_place(2)
+        renderer.dices.move_player_animation.get_fixed_place(11)
 
 class GoToFirstStation(ChanceCard):
     def __init__(self):
@@ -99,7 +99,7 @@ class GoToFirstStation(ChanceCard):
                          )
 
     def exec(self, renderer: BoardRenderer):
-        renderer.dices.move_player_animation.get_fixed_place(4)
+        renderer.dices.move_player_animation.get_fixed_place(5)
 
 class DateOfPaymentProfit(ChanceCard):
     def __init__(self):
@@ -131,9 +131,152 @@ class GoToLastPurple(ChanceCard):
         renderer.dices.move_player_animation.get_fixed_place(39)
 
 
+class GoBackThreeSteps(ChanceCard):
+    def __init__(self):
+        super().__init__("ВЪРНЕТЕ СЕ ТРИ МЕСТА НАЗАД")
+
+    def exec(self, renderer: BoardRenderer):
+        index_to_go = renderer.current_player.board_index - 3
+        renderer.dices.move_player_animation.forward = False
+        renderer.dices.move_player_animation.get_fixed_place(index_to_go)
+
+class PayForBuildings(ChanceCard):
+    def __init__(self):
+        super().__init__("ОСНОВЕН РЕМОНТ НА ВСИЧКИТЕ ВИ СГРАДИ\n"
+                         "ЗА ВСЯКА КЪЩА ПЛАТЕТЕ ПО 25\n"
+                         "ЗА ВСЕКИ ХОТЕЛ ПЛАТЕТЕ ПО 100"
+                         )
+
+    def exec(self, renderer: BoardRenderer):
+        accumulated_price = 0
+        for sprite in renderer.board.sprites():
+            if sprite.rect_type == "generic" and  sprite.owner == renderer.current_player:
+                if sprite.houses == 5:
+                    accumulated_price += 100
+                else:
+                    accumulated_price += 25 * sprite.houses
+        renderer.current_player -= accumulated_price
+
+
+class GoToPrison(ChanceCard):
+    def __init__(self):
+        super().__init__("ОТИВАТЕ ДИРЕКТНО В ЗАТВОРА.НЕ ПРЕМИНАВАТЕ ПРЕЗ НАЧАЛО И НЕ ПОЛУЧАВАТЕ 200")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.dices.move_player_animation.forward = False
+        renderer.current_player.in_prison = True
+        renderer.dices.move_player_animation.get_fixed_place(10)
+
+
+class PaySchoolFines(TreasureCard):
+    def __init__(self):
+        super().__init__("ПЛАТЕТЕ УЧИЛИЩНИ ТАКСИ 50")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money -= 50
+
+
+class SellShare(TreasureCard):
+    def __init__(self):
+        super().__init__("ПРОДАВАТЕ АКЦИИ И ПОЛУЧАВАТЕ 50")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money += 50
+
+class BeautyTax(TreasureCard):
+    def __init__(self):
+        super().__init__("ПЕЧЕЛИТЕ КОНКУРС ПО КРАСОТА И ПОЛУЧАВАТЕ 10")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money += 10
+
+
+class ConsultingProfit(TreasureCard):
+    def __init__(self):
+        super().__init__("ПОЛУЧАВАТЕ ХОНОРОР ЗА КОНСУЛТАНТ 25")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money += 25
+
+class BankMistake(TreasureCard):
+    def __init__(self):
+        super().__init__("БАНКОВА ГРЕШКА ВЪВ ВАША ПОЛЗА ПОЛУЧАВАТЕ 200")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money += 200
+
+
+class HeritageProfit(TreasureCard):
+    def __init__(self):
+        super().__init__("ПОЛУЧАВАТЕ НАСЛЕДСТВО ОТ 100")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money += 100
+
+
+class HospitalPayment(TreasureCard):
+    def __init__(self):
+        super().__init__("ПЛАТЕТЕ 100 ЗА БОЛНИЧНИ ТАКСИ")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money -= 100
 
 
 
+class PayAllHousesAndHotels(TreasureCard):
+    def __init__(self):
+        super().__init__("ПЛАЩАТЕ ЗА РЕМОНТ НА УЛИЦИ. 40 ЗА ВСЯКА КЪЩА. 115 ЗА ВСЕКИ ХОТЕЛ")
+
+    def exec(self, renderer: BoardRenderer):
+        accumulated_price = 0
+        for sprite in renderer.board.sprites():
+            if sprite.rect_type == "generic":
+                if sprite.houses == 5:
+                    accumulated_price += 115
+                else:
+                    accumulated_price += 40 * sprite.houses
+
+
+class BirthdayProfit(TreasureCard):
+    def __init__(self):
+        super().__init__("ИМАТЕ РОЖДЕН ДЕН. ПОЛУЧАВАТЕ ПО 10 ОТ ВСЕКИ ИГРАЧ")
+
+    def exec(self, renderer: BoardRenderer):
+        for player in renderer.players:
+            if player != renderer.current_player:
+                renderer.current_player.money += 10
+                player.money -= 10
+
+
+class DoctorPayment(TreasureCard):
+    def __init__(self):
+        super().__init__("ТАКСА ЗА ЛЕКАР. ПЛАТЕТЕ 50")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money -= 50
+
+
+class LifeInsuranceProfit(TreasureCard):
+    def __init__(self):
+        super().__init__("ПАДЕЖ НА ЗАСТРАХОВКА ЖИВОТ. ПОЛУЧАВАТЕ 100")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money += 100
+
+
+class UnpaidTaxesProfit(TreasureCard):
+    def __init__(self):
+        super().__init__("ВРЪЩАТ ВИ НАДПЛАТЕНИ ДАНЪЦИ ПОЛУЧАВАТЕ 20")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money += 20
+
+class VacationFondProfit(TreasureCard):
+    def __init__(self):
+        super().__init__("ПАДЕЖ НА ВАКАНЦИОНЕН ФОНД ПОЛУЧАВАТЕ 100")
+
+    def exec(self, renderer: BoardRenderer):
+        renderer.current_player.money += 100
 
 treasure_cards = [
 

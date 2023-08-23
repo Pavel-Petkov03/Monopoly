@@ -18,7 +18,7 @@ class Board(TextureGroup):
         house_price = 50
         for entry in border_data:
             x, y = 0, 0
-            rect_type = entry.pop("rect_type")
+            rect_type = entry["rect_type"]
             entry["rotation"] = rotation_degrees
             entry["house_price"] = house_price
             rect_class = self.get_rect_class(rect_type)

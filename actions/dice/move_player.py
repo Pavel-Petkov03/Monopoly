@@ -12,23 +12,32 @@ class MovePlayer(Action):
         self.board_index = None
         self.dices = dices
         self.on = False
+        self.forward = True
 
     def execute(self):
         if self.on:
-            current_board_map_card = self.get_map_card()
-            if self.board_index == self.current_player.board_index:
-                current_board_map_card.remove_player_from_all_players(self.current_player)
-                current_board_map_card.add_player_to_temporary(self.current_player)
+            if (not self.current_player.in_prison) or self.dices.dice_equal_sign():
+                self.current_player.in_prison = False
+                current_board_map_card = self.get_map_card()
+                if self.board_index == self.current_player.board_index:
+                    current_board_map_card.remove_player_from_all_players(self.current_player)
+                    current_board_map_card.add_player_to_temporary(self.current_player)
 
-            current_board_map_card.remove_player_from_temporary(self.current_player)
-            self.calculate_new_index()
-            current_board_map_card = self.get_map_card()
-            current_board_map_card.add_player_to_temporary(self.current_player)
-            if self.check_end():
-                pygame.event.post(pygame.event.Event(ON_BOX))
-                current_board_map_card.add_player_to_all_players(self.current_player)
                 current_board_map_card.remove_player_from_temporary(self.current_player)
-                self.on = False
+                self.calculate_new_index()
+                current_board_map_card = self.get_map_card()
+                current_board_map_card.add_player_to_temporary(self.current_player)
+                if self.check_end():
+                    pygame.event.post(pygame.event.Event(ON_BOX))
+                    current_board_map_card.add_player_to_all_players(self.current_player)
+                    current_board_map_card.remove_player_from_temporary(self.current_player)
+                    self.forward = True
+                    self.on = False
+            else:
+                self.current_player.attempth_count += 1
+                if self.current_player.attempth_count == 3:
+                    self.current_player.in_prison = False
+
 
     def get_map_card(self):
         return self.board.sprites()[self.current_player.board_index]
@@ -51,15 +60,20 @@ class MovePlayer(Action):
     def end_index(self, index):
         if index > 39:
             index -= 40
+        elif index < 0:
+            index += 40
         return index
 
     def check_end(self):
         return self.current_player.board_index == self.end_index(self.dices.thrown + self.board_index)
 
     def calculate_new_index(self):
-        self.current_player.board_index += 1
-        if self.current_player.board_index > 39:
-            self.current_player.board_index -= 40
+        if self.forward:
+            self.current_player.board_index += 1
+        else:
+            self.current_player.board_index -= 1
+
+        self.current_player.board_index = self.end_index(self.current_player.board_index)
 
     def start(self):
         self.on = True
