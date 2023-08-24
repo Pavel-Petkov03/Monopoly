@@ -73,14 +73,7 @@ class GenericMapCardModal(Modal):
             sprite.blit(self.surface)
         super().blit(window)
 
-    def set_header(self, header):
-        self.create_text_and_blit(
-            self.surface,
-            header,
-            30,
-            "white",
-            (self.width / 2, self.height / 10)
-        )
+
 
 
 

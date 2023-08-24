@@ -34,8 +34,9 @@ class MovePlayer(Action):
                     self.forward = True
                     self.on = False
             else:
-                self.current_player.attempth_count += 1
-                if self.current_player.attempth_count == 3:
+                self.current_player.prison_attempt_throw += 1
+                if self.current_player.prison_attempt_throw == 3:
+                    self.current_player.prison_attempt_throw = 0
                     self.current_player.in_prison = False
 
 

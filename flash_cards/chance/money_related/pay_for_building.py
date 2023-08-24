@@ -1,5 +1,4 @@
 from flash_cards.chance.base import ChanceCard
-from renderers.board_render import BoardRenderer
 
 
 class PayForBuildings(ChanceCard):
@@ -9,7 +8,7 @@ class PayForBuildings(ChanceCard):
                          "ЗА ВСЕКИ ХОТЕЛ ПЛАТЕТЕ ПО 100"
                          )
 
-    def exec(self, renderer: BoardRenderer):
+    def exec(self, renderer):
         accumulated_price = 0
         for sprite in renderer.board.sprites():
             if sprite.rect_type == "generic" and  sprite.owner == renderer.current_player:
@@ -17,4 +16,4 @@ class PayForBuildings(ChanceCard):
                     accumulated_price += 100
                 else:
                     accumulated_price += 25 * sprite.houses
-        renderer.current_player -= accumulated_price
+        renderer.current_player.money -= accumulated_price

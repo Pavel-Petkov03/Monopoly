@@ -1,5 +1,4 @@
 from flash_cards.chance.base import ChanceCard
-from renderers.board_render import BoardRenderer
 
 
 class GoToFirstPink(ChanceCard):
@@ -8,5 +7,5 @@ class GoToFirstPink(ChanceCard):
                          "АКО ПРЕМИНЕТЕ ПРЕЗ НАЧАЛОТО ПОЛУЧАВАТЕ 200"
                          )
 
-    def exec(self, renderer: BoardRenderer):
+    def exec(self, renderer):
         renderer.dices.move_player_animation.get_fixed_place(11)

@@ -33,18 +33,14 @@ from flash_cards.treasure.money_related.vacation_fond_profit import VacationFond
 class Holder:
     def __init__(self):
         self.cards = deque()
-        self.current_card = None
 
-    
     def get_card(self):
-        current_card = self.cards.pop()
-        self.make_shift(current_card)
-        self.current_card = current_card
+        current_card = self.cards[-1]
         return current_card
-    def make_shift(self, current_card):
-        self.cards.appendleft(current_card)
-    
-    
+
+    def make_shift(self):
+        self.cards.appendleft(self.cards.pop())
+
 
 class ChanceHolder(Holder):
     def __init__(self):
@@ -65,7 +61,7 @@ class ChanceHolder(Holder):
             GetDividends(),
             PayForBuildings()
         ])
-        
+
         random.shuffle(self.cards)
 
 

@@ -5,6 +5,7 @@ from sprites.modals.generic_map_card.build_house import BuildHouseOnOwnerPropert
 from sprites.modals.generic_map_card.buy import BuyGenericMapCardModal
 from sprites.modals.generic_map_card.pay_to_owner import PayToOwnerMapCardModal
 from sprites.base_map_card import BaseMapCard
+from sprites.modals.side_map_card.chance_and_treasure import ChanceModal
 
 from vars import screen_rect_size, neighborhoods
 
@@ -122,4 +123,19 @@ class SideImageMapCard(BaseMapCard):
 
     def update(self, *args, **kwargs) -> None:
         if self.new_player_on and self.renderer.current_player in self.players:
-            pass
+            if self.side_image_type == "station":
+                m = ChanceModal(self.renderer)
+                self.renderer.add_texture(m)
+            elif self.side_image_type == "public_services":
+                m = ChanceModal(self.renderer)
+                self.renderer.add_texture(m)
+            elif self.side_image_type == "play_card":
+                m = ChanceModal(self.renderer)
+                self.renderer.add_texture(m)
+            elif self.side_image_type == "treasure":
+                m = ChanceModal(self.renderer)
+                self.renderer.add_texture(m)
+            elif self.side_image_type == "pay":
+                m = ChanceModal(self.renderer)
+                self.renderer.add_texture(m)
+            self.new_player_on = False

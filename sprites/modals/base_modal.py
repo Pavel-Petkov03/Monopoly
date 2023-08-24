@@ -14,5 +14,15 @@ class Modal(TextureGroup):
         self.surface = pygame.Surface((self.width, self.height))
         self.surface.fill("black")
 
+
     def blit(self, window):
         window.blit(self.surface, (self.x, self.y))
+
+    def set_header(self, header):
+        self.create_text_and_blit(
+            self.surface,
+            header,
+            30,
+            "white",
+            (self.width / 2, self.height / 10)
+        )
