@@ -12,16 +12,3 @@ class Card:
 
 
 
-class Holder:
-    def __init__(self):
-        self.cards = deque()
-
-
-class TreasureHolder(Holder):
-    def __init__(self):
-        super().__init__()
-
-
-
-class ChanceHolder(Holder):
-    pass

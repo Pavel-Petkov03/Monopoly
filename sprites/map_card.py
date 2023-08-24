@@ -1,5 +1,6 @@
 import pygame
 
+from flash_cards.decks import ChanceHolder, TreasureHolder
 from sprites.texture import Texture
 
 
@@ -47,6 +48,10 @@ class GenericMapCard(Texture):
 
 
 
+
+
+
+
 class SideImageMapCard(Texture):
     def __init__(self, width, height, side_image_type, map_card_name, image_path):
         super().__init__()
@@ -57,13 +62,9 @@ class SideImageMapCard(Texture):
         self.surface = pygame.Surface((self.width, self.height))
         self.image_path = image_path
         self.padding_counter = 0
+        self.chance_holder = ChanceHolder()
+        self.treasure_holder = TreasureHolder()
         self.surface.fill("white")
-
-    # def get_side_image_type(self):
-    #     ds = {
-    #         "station"
-    #     }
-    #     return ds[self.side_image_type]
 
     def header_data(self):
         self.padding_counter = self.surface.get_height() / 20
@@ -75,7 +76,6 @@ class SideImageMapCard(Texture):
         self.surface.blit(image, (self.surface.get_width() / 2, self.padding_counter))
 
     def station(self):
-
         for key, value in {str(i): int(i) * 50 for i in range(1, 5)}.items():
             self.create_text_and_blit(self.surface, f"{f'Наем за {key}'}", 20, (0, 0, 0),
                                       (self.width / 4, self.padding_counter))
@@ -84,10 +84,16 @@ class SideImageMapCard(Texture):
             self.padding_counter += self.surface.get_height() / 20
 
     def chance(self):
-        pass
+        self.padding_counter += self.surface.get_height() / 5
+        card = self.chance_holder.get_card()
+        self.create_text_and_blit(self.surface, card.header_message, 25, (0, 0, 0),
+                                  (self.surface.get_width() / 2, self.padding_counter))
 
     def treasure(self):
-        pass
+        self.padding_counter += self.surface.get_height() / 5
+        card = self.treasure_holder.get_card()
+        self.create_text_and_blit(self.surface, card.header_message, 25, (0, 0, 0),
+                                  (self.surface.get_width() / 2, self.padding_counter))
 
     def public_services(self):
         pass

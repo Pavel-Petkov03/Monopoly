@@ -104,7 +104,15 @@ class SideImageMapCard(BaseMapCard):
     height = screen_rect_size / 16 * 2
 
     def __init__(self, x, y, renderer, **kwargs):
-        super().__init__(x, y, renderer, **kwargs)
+        super().__init__(x, y, **kwargs)
+        self.renderer = renderer
+        self.new_player_on = False
+        self.side_image_pack = SideImagePack()
+        self.load_pack()
+
+    def load_pack(self):
+        if self.rect_type in ("station", "public_services"):
+            self.side_image_pack.add_side_image(self)
 
     def add_additional_data(self):
         self.image_load(30)
@@ -113,4 +121,5 @@ class SideImageMapCard(BaseMapCard):
             self.set_caption(f"${self.price}", self.width / 6, self.width / 2, self.height * 7 / 8)
 
     def update(self, *args, **kwargs) -> None:
-        pass
+        if self.new_player_on and self.renderer.current_player in self.players:
+            pass

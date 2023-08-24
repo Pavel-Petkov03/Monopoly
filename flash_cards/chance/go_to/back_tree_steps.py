@@ -1,3 +1,4 @@
+from flash_cards.chance.base import ChanceCard
 from renderers.board_render import BoardRenderer
 
 
