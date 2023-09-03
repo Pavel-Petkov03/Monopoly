@@ -4,9 +4,11 @@ from utils import TextureMixin
 
 
 class Texture(pygame.sprite.Sprite, TextureMixin):
-    def __init__(self):
-
+    def __init__(self, width, height):
         super().__init__()
+        self.width = width
+        self.height = height
+        self.surface = pygame.Surface((self.width, self.height))
         self.event_list = []
         self.update_kwargs = {}
 
@@ -20,6 +22,7 @@ class Texture(pygame.sprite.Sprite, TextureMixin):
         for event in self.event_list:
             if event.condition(event_type, self):
                 event.execute(self)
+
 
 
 class TextureGroup(pygame.sprite.Group, TextureMixin):

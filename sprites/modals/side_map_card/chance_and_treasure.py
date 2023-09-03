@@ -27,6 +27,11 @@ class BaseChanceAndTreasureModal(Modal):
             action_class=self.ok_button_action_class(self.renderer)
         )
 
+    def blit(self, window):
+        for sprite in self.sprites():
+            sprite.blit(self.surface)
+        super().blit(window)
+
 
 class ChanceModal(BaseChanceAndTreasureModal):
     ok_button_action_class = ChanceAction

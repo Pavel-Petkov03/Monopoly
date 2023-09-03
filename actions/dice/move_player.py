@@ -46,7 +46,7 @@ class MovePlayer(Action):
     def get_nearest_place(self, rect_type):
         current_index = self.current_player.board_index
         for i in range(1, 41):
-            new_index = current_index + 1
+            new_index = current_index + i
             new_index = self.end_index(new_index)
             if self.board.sprites()[new_index].side_image_type == rect_type:
                 self.get_fixed_place(new_index)
@@ -54,7 +54,10 @@ class MovePlayer(Action):
 
     def get_fixed_place(self, index):
         if self.current_player.board_index > index:
-            index += 40
+            index += 40 - self.current_player.board_index
+        else:
+            index -= self.current_player.board_index
+        print(index)
         self.dices.thrown = index
         pygame.event.post(pygame.event.Event(ON_PLAYER_MOVEMENT))
 

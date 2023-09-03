@@ -14,15 +14,12 @@ class Dice(Texture):
     ANIMATION_IMAGES = [os.path.join(BASE_DIR, "images", "dice", "animation", f"{i}.png") for i in range(1, 7)]
 
     def __init__(self, x, y):
-        super().__init__()
+        super().__init__(screen_rect_size / 24,screen_rect_size / 24)
         self.x = x
         self.y = y
-        self.width = screen_rect_size / 24
-        self.height = screen_rect_size / 24
         self.animation_images = self.load_images(self.ANIMATION_IMAGES)
-        self.image = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
         self.rect = pygame.Rect(x, y, self.width, self.height)
-        self.image.fill("white")
+        self.surface.fill("white")
         self.current_image = self.animation_images[1]
         self.calculated_dice = None
         self.dice_animation_class = DiceAnimation(x, y, self.width, self.height)
@@ -39,9 +36,9 @@ class Dice(Texture):
         self.dice_animation_class.animate()
 
     def blit(self, surface):
-        self.image.fill("white")
-        self.image.blit(self.current_image, (0,0))
-        surface.blit(self.image, (self.x, self.y))
+        self.surface.fill("white")
+        self.surface.blit(self.current_image, (0,0))
+        surface.blit(self.surface, (self.x, self.y))
 
     def calculate_num(self):
         self.calculated_dice = random.randint(1, 6)
@@ -52,7 +49,7 @@ class Dice(Texture):
 class Dices(Texture):
 
     def __init__(self, render_state):
-        super().__init__()
+        super().__init__(screen_rect_size / 12, screen_rect_size / 24)
         dice1 = Dice(screen_rect_size / 2, screen_rect_size / 2)
         dice2 = Dice(screen_rect_size / 2 + dice1.width, screen_rect_size / 2)
         self.thrown = 0

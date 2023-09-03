@@ -13,3 +13,21 @@ class TextureMixin:
         text_surface = self.create_font(text_name, text_size, text_color)
         text_rect = text_surface.get_rect(center=text_center)
         surface.blit(text_surface, text_rect)
+
+
+
+    def word_splitter(self, text : str):
+        words = text.split(" ")
+        f = []
+        s = ""
+        i = 0
+        for word in words:
+            i += 1
+            s += f" {word}"
+            if i == 10 or len(s) >= 30:
+                f.append(s)
+                s = ""
+                i = 0
+        if s:
+            f.append(s)
+        return f

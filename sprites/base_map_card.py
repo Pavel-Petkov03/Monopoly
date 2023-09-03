@@ -10,7 +10,7 @@ class BaseMapCard(Texture):
 
     def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None,
                  price_dict=None, neighborhood=None, house_price=None, side_image_type=None, rect_type=None):
-        super().__init__()
+        super().__init__(self.width, self.height)
         self.image = None
         self.x = x
         self.y = y

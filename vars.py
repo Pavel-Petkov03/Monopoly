@@ -330,7 +330,6 @@ border_data = [
         "caption": "ВИК",
         "inside_image_path": "sink.png",
         "side_image_type": 'public_services'
-
     },
     {
         "rect_type": 'generic',

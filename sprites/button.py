@@ -8,7 +8,7 @@ class Button(Texture):
     def __init__(self, width_and_height_tuple=None, background=None, text=None, text_size=None, text_color=None,
                  blit_pos=None, hover_color=None,
                  action_class=None, inherit_x=None, inherit_y=None):
-        super().__init__()
+        super().__init__(*width_and_height_tuple)
         self.blit_pos = blit_pos
         self.action_class = action_class
         self.hover_color = hover_color

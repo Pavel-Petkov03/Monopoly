@@ -6,15 +6,11 @@ from sprites.texture import Texture
 
 class GenericMapCard(Texture):
     def __init__(self, width, height, inner_surface_fill_color, map_card_name, map_card_data, blit_pos):
-        super().__init__()
-        self.width = width
-        self.height = height
+        super().__init__(width, height)
         self.inner_surface_fill_color = inner_surface_fill_color
         self.map_card_name = map_card_name
         self.map_card_data = map_card_data
         self.blit_pos = blit_pos
-
-        self.surface = pygame.Surface((self.width, self.height))
         self.surface.fill("white")
         self.inner_fill_surface = pygame.Surface((2 / 3 * self.width, 1 / 5 * self.height))
         self.inner_fill_surface.fill(self.inner_surface_fill_color)
@@ -46,15 +42,23 @@ class GenericMapCard(Texture):
         window.blit(self.surface, self.blit_pos)
 
 
+class TreasureAndChanceCardDesign(Texture):
+    def __init__(self, width, height, side_image_type, holder):
+        super().__init__(width, height)
 
-
-
-
+        self.surface.fill("white")
+        x = self.width / 17
+        pygame.draw.line(self.surface, "black", (x, x), (self.width - x, x))
+        pygame.draw.line(self.surface, "black", (x, x), (x, self.height - x))
+        pygame.draw.line(self.surface, "black", (self.width - x, x), (self.width - x, self.height - x))
+        pygame.draw.line(self.surface, "black", (self.width - x, self.height - x), (x, self.height - x))
+        padding = 2 * x
+        self.create_text_and_blit(self.surface, side_image_type, 30, "black", (self.width / 2, padding))
 
 
 class SideImageMapCard(Texture):
     def __init__(self, width, height, side_image_type, map_card_name, image_path):
-        super().__init__()
+        super().__init__(width, height)
         self.width = width
         self.height = height
         self.side_image_type = side_image_type

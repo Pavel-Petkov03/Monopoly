@@ -19,10 +19,17 @@ class Modal(TextureGroup):
         window.blit(self.surface, (self.x, self.y))
 
     def set_header(self, header):
-        self.create_text_and_blit(
-            self.surface,
-            header,
-            30,
-            "white",
-            (self.width / 2, self.height / 10)
-        )
+        print(header)
+        words = self.word_splitter(header)
+        padding = 0
+        for row in words:
+            self.create_text_and_blit(
+                self.surface,
+                row,
+                30 - len(row.split(" ")),
+                "white",
+                (self.width / 2, self.height / 10 + padding)
+            )
+            padding += self.height / 15
+
+
