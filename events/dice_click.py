@@ -9,13 +9,15 @@ class DiceClickEvent(Event):
     def condition(event_type, texture):
         for dice in texture.dices:
             if event_type == pygame.MOUSEBUTTONDOWN and dice.rect.collidepoint(
-                    *pygame.mouse.get_pos()):
+                    *pygame.mouse.get_pos()) and not texture.dice_animation_frame.animation_on and not texture\
+                    .move_player_animation.on:
                 return True
         return False
 
     @staticmethod
     def execute(texture):
         texture.dice_animation_frame.start()
+
 
 
 class PlayerMovementEvent(Event):

@@ -6,22 +6,22 @@ class AnimationFrame:
     def __init__(self, delay):
         self.__start = None
         self.__end = None
-        self.__animation_on = False
+        self.animation_on = False
         self.delay = delay
 
     def execute(self):
-        if self.__animation_on:
+        if self.animation_on:
             if self.__start <= self.__end:
                 self.__start = pygame.time.get_ticks()
                 self.on_animation_func()
             else:
                 self.clean_up_function()
-                self.__animation_on = False
+                self.animation_on = False
 
     def start(self):
         self.__start = pygame.time.get_ticks()
         self.__end = self.__start + self.delay
-        self.__animation_on = True
+        self.animation_on = True
 
     def clean_up_function(self):
         pass

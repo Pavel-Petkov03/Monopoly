@@ -14,7 +14,7 @@ class Dice(Texture):
     ANIMATION_IMAGES = [os.path.join(BASE_DIR, "images", "dice", "animation", f"{i}.png") for i in range(1, 7)]
 
     def __init__(self, x, y):
-        super().__init__(screen_rect_size / 24,screen_rect_size / 24)
+        super().__init__(screen_rect_size / 24, screen_rect_size / 24)
         self.x = x
         self.y = y
         self.animation_images = self.load_images(self.ANIMATION_IMAGES)
@@ -37,7 +37,7 @@ class Dice(Texture):
 
     def blit(self, surface):
         self.surface.fill("white")
-        self.surface.blit(self.current_image, (0,0))
+        self.surface.blit(self.current_image, (0, 0))
         surface.blit(self.surface, (self.x, self.y))
 
     def calculate_num(self):
@@ -70,5 +70,6 @@ class Dices(Texture):
         return self.dices[0].calculated_dice == self.dices[1].calculated_dice
 
     def blit(self, window):
-        for dice in self.dices:
-            dice.blit(window)
+        if not self.dice_animation_frame.animation_on:
+            for dice in self.dices:
+                dice.blit(window)

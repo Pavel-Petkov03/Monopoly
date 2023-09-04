@@ -7,8 +7,7 @@ user32 = ctypes.windll.user32
 size = min(user32.GetSystemMetrics(78), user32.GetSystemMetrics(79))
 screen_rect_size = int(size - size / 8)
 screen = pygame.display.set_mode((screen_rect_size, screen_rect_size))
-GAME_NAME = "Monopoly"
-pygame.display.set_caption(GAME_NAME)
+
 BASE_DIR = os.path.dirname(__file__)
 
 neighborhoods_count = 8

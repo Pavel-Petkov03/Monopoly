@@ -11,11 +11,13 @@ class BaseMapCard(Texture):
     def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None,
                  price_dict=None, neighborhood=None, house_price=None, side_image_type=None, rect_type=None):
         super().__init__(self.width, self.height)
-        self.image = None
+        self.image = pygame.Surface((self.width, self.height))
         self.x = x
         self.y = y
         self.neighborhood = neighborhood
-        self.inside_image_path = f"images/board/{inside_image_path}"
+        self.inside_image_path = inside_image_path
+        self.inside_image_picture = None
+        self.load_inside_image()
         self.caption = caption
         self.color = color
         self.price = price
@@ -31,8 +33,11 @@ class BaseMapCard(Texture):
             MapCardEvent
         ]
 
+    def load_inside_image(self):
+        if self.inside_image_path:
+            self.inside_image_picture = pygame.image.load(f"images/board/{self.inside_image_path}").convert_alpha()
+
     def set_rect(self):
-        self.image = pygame.Surface((self.width, self.height))
         self.image.fill("white")
         pygame.draw.rect(self.image, "black", self.image.get_rect(), 1)
         self.add_additional_data()
@@ -49,9 +54,9 @@ class BaseMapCard(Texture):
             y += scaled_height
             self.image.blit(image, (x, y))
 
-
     def remove_player_from_all_players(self, player):
         self.players.pop(player)
+
     def remove_player_from_temporary(self, player):
         self.temporary_players.pop(player)
 
@@ -68,10 +73,9 @@ class BaseMapCard(Texture):
         padding_top = int(self.height * (padding_percent / 100))
         padding_bottom = int(self.height * (padding_percent / 100))
         new_height = self.height - padding_top - padding_bottom
-        inside_image = pygame.image.load(self.inside_image_path).convert_alpha()
-        scale_factor = new_height / inside_image.get_height()
-        new_width = int(inside_image.get_width() * scale_factor)
-        scaled_image = pygame.transform.scale(inside_image, (new_width, new_height)).convert_alpha()
+        scale_factor = new_height / self.inside_image_picture.get_height()
+        new_width = int(self.inside_image_picture.get_width() * scale_factor)
+        scaled_image = pygame.transform.scale(self.inside_image_picture, (new_width, new_height)).convert_alpha()
         x_offset = (self.width - new_width) // 2
         self.image.blit(scaled_image, (x_offset, padding_top))
 
@@ -90,7 +94,4 @@ class BaseMapCard(Texture):
         rect = rotated_image.get_rect()
         rect.x = self.x
         rect.y = self.y
-
         window.blit(rotated_image, rect)
-
-
