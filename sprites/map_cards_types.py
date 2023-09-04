@@ -24,6 +24,8 @@ class GenericMapCard(BaseMapCard):
         self.house_image = self.get_house_image()
         self.hotel_image = self.get_hotel_image()
         self.renderer = renderer
+        self.set_rect()
+
 
     def calculate_current_price(self):
         if self.neighborhood.check_all_map_cards_have_same_owner(self.owner):
@@ -39,12 +41,12 @@ class GenericMapCard(BaseMapCard):
     def draw_houses(self):
         if self.houses == 5:
             x = self.top_inner_rect.width / 2 - self.hotel_image.get_width() / 2
-            self.image.blit(self.hotel_image, (x, self.top_inner_rect.height / 8))
+            self.temporary_image.blit(self.hotel_image, (x, self.top_inner_rect.height / 8))
 
         else:
             current_x = 0
             for i in range(self.houses):
-                self.image.blit(self.house_image, (current_x, self.top_inner_rect.height / 2))
+                self.temporary_image.blit(self.house_image, (current_x, self.top_inner_rect.height / 2))
                 current_x += self.house_image.get_width()
 
     def get_house_image(self):
@@ -85,6 +87,7 @@ class CornerMapCard(BaseMapCard):
 
     def __init__(self, x, y, renderer, **kwargs):
         super().__init__(x, y, renderer, **kwargs)
+        self.set_rect()
 
     def add_additional_data(self):
         self.image_load(0)
@@ -110,6 +113,7 @@ class SideImageMapCard(BaseMapCard):
         self.new_player_on = False
         self.side_image_pack = SideImagePack()
         self.load_pack()
+        self.set_rect()
 
     def load_pack(self):
         if self.rect_type in ("station", "public_services"):

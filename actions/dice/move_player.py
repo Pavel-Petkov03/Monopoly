@@ -57,7 +57,6 @@ class MovePlayer(Action):
             index += 40 - self.current_player.board_index
         else:
             index -= self.current_player.board_index
-        print(index)
         self.dices.thrown = index
         pygame.event.post(pygame.event.Event(ON_PLAYER_MOVEMENT))
 

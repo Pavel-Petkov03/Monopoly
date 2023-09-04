@@ -25,6 +25,7 @@ class BaseMapCard(Texture):
         self.rotation = rotation
         self.players = {}
         self.temporary_players = {}
+        self.temporary_image = None
         self.house_price = house_price
         self.top_inner_rect = pygame.Rect(0, 0, self.width, self.height / 4)
         self.side_image_type = side_image_type
@@ -43,6 +44,7 @@ class BaseMapCard(Texture):
         self.add_additional_data()
 
     def load_pieces(self):
+        self.temporary_image = self.image.copy()
         scaled_width = self.top_inner_rect.width
         concatenated_dict = {**self.temporary_players, **self.players}
         scaled_height = self.height / (len(concatenated_dict) + 1)
@@ -52,7 +54,7 @@ class BaseMapCard(Texture):
             image = player.piece_image
             image = pygame.transform.scale(image, (scaled_width, scaled_height))
             y += scaled_height
-            self.image.blit(image, (x, y))
+            self.temporary_image.blit(image, (x, y))
 
     def remove_player_from_all_players(self, player):
         self.players.pop(player)
@@ -88,9 +90,8 @@ class BaseMapCard(Texture):
             padding_counter += padding
 
     def blit(self, window):
-        self.set_rect()
         self.load_pieces()
-        rotated_image = pygame.transform.rotate(self.image, self.rotation)
+        rotated_image = pygame.transform.rotate(self.temporary_image, self.rotation)
         rect = rotated_image.get_rect()
         rect.x = self.x
         rect.y = self.y

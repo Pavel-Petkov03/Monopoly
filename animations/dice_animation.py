@@ -2,6 +2,7 @@ import pygame
 import numpy as np
 from math import *
 
+from timer import Timer
 from vars import screen
 
 
@@ -77,13 +78,15 @@ class DiceAnimation(Rotation):
         self.points = [np.matrix(ar) for ar in self.vertecies]
         self.projected_points = [[n, n] for n in range(len(self.points))]
         self.projection_matrix = [[1, 0, 0], [0, 1, 0], [0, 0, 0]]
+        self.timer = Timer()
+        self.speed = 5
 
     def animate(self):
         self.project_points()
         self.draw_polygon()
         self.draw_edges()
 
-        self.angle += 1
+        self.angle += self.speed * self.timer.delta_time
 
     def project_points(self):
         for i, point in enumerate(self.points):

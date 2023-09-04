@@ -1,6 +1,14 @@
 import pygame
 
 
+class SingletonClass:
+
+    def __new__(cls):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(SingletonClass, cls).__new__(cls)
+        return cls.instance
+
+
 class TextureMixin:
 
     @staticmethod
@@ -14,9 +22,7 @@ class TextureMixin:
         text_rect = text_surface.get_rect(center=text_center)
         surface.blit(text_surface, text_rect)
 
-
-
-    def word_splitter(self, text : str):
+    def word_splitter(self, text: str):
         words = text.split(" ")
         f = []
         s = ""
