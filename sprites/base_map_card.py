@@ -26,6 +26,9 @@ class BaseMapCard(Texture):
         self.players = {}
         self.temporary_players = {}
         self.temporary_image = None
+        self.owner = None
+        self.owner_circle = None
+        self.owner_circle_pos = self.get_circle_pos()
         self.house_price = house_price
         self.top_inner_rect = pygame.Rect(0, 0, self.width, self.height / 4)
         self.side_image_type = side_image_type
@@ -33,6 +36,22 @@ class BaseMapCard(Texture):
         self.event_list = [
             MapCardEvent
         ]
+
+    def get_circle_pos(self):
+        if self.rotation == 0:
+            current_x = self.x + self.width / 2
+            current_y = self.y - self.height / 10
+
+        elif self.rotation == 270:
+            current_x = self.height + self.height / 10
+            current_y = self.y + self.width / 2
+        elif self.rotation == 180:
+            current_x = self.x + self.width / 2
+            current_y = self.height + self.height / 10
+        else:
+            current_x = self.x - self.height / 10
+            current_y = self.y + self.width / 2
+        return current_x, current_y
 
     def load_inside_image(self):
         if self.inside_image_path:
@@ -89,10 +108,19 @@ class BaseMapCard(Texture):
             self.create_text_and_blit(self.image, word, size, (0, 0, 0), (width, height + padding_counter))
             padding_counter += padding
 
+    def draw_houses(self):
+        pass
+
     def blit(self, window):
         self.load_pieces()
+        self.draw_circle(window)
+        self.draw_houses()
         rotated_image = pygame.transform.rotate(self.temporary_image, self.rotation)
         rect = rotated_image.get_rect()
         rect.x = self.x
         rect.y = self.y
         window.blit(rotated_image, rect)
+
+    def draw_circle(self, window):
+        if self.owner:
+            pygame.draw.circle(window, self.owner.color, self.owner_circle_pos, 10)

@@ -6,7 +6,8 @@ from client import Client
 
 
 class Player:
-    def __init__(self, name, piece_image_location):
+    def __init__(self, name, piece_image_location, color):
+        self.color = color
         self.name = name
         self.board_index = 0
         self.money = 1000
