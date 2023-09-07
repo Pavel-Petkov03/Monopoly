@@ -17,7 +17,6 @@ class GenericMapCard(BaseMapCard):
     def __init__(self, x, y, renderer, **kwargs):
         super().__init__(x, y, **kwargs)
         self.owner = None
-        self.new_player_on = False
         self.houses = 0
         self.neighborhood = neighborhoods[self.neighborhood]
         self.neighborhood.add_generic_map_cards(self)
@@ -30,7 +29,7 @@ class GenericMapCard(BaseMapCard):
     def calculate_current_price(self):
         if self.neighborhood.check_all_map_cards_have_same_owner(self.owner):
             return self.price * 2
-        return self.price_dict[self.houses]
+        return self.price_dict[str(self.houses)]
 
     def add_additional_data(self):
         pygame.draw.rect(self.image, self.color, self.top_inner_rect)
@@ -58,11 +57,13 @@ class GenericMapCard(BaseMapCard):
         return pygame.transform.scale(image, (self.top_inner_rect.width / 2, self.top_inner_rect.height))
 
     def update(self, *args, **kwargs) -> None:
-        if self.new_player_on and self.renderer.current_player in self.players:
+        if GenericMapCard.new_player_on and self.renderer.current_player in self.players:
             current_player = self.renderer.current_player
-            modal_data = (self, self.renderer, current_player)
+            modal_data = (self.renderer, self, current_player)
             self.get_proper_modal(current_player, modal_data)
-            self.new_player_on = False
+            GenericMapCard.new_player_on = False
+
+
 
     def get_proper_modal(self, current_player, modal_data):
         if current_player == self.owner:
@@ -78,7 +79,7 @@ class GenericMapCard(BaseMapCard):
                 modal = BuyGenericMapCardModal(*modal_data)
             else:
                 modal = PayToOwnerMapCardModal(*modal_data)
-        modal_data[1].add_texture(modal)
+        modal_data[0].add_texture(modal)
 
 
 class CornerMapCard(BaseMapCard):
@@ -110,7 +111,6 @@ class SideImageMapCard(BaseMapCard):
     def __init__(self, x, y, renderer, **kwargs):
         super().__init__(x, y, **kwargs)
         self.renderer = renderer
-        self.new_player_on = False
         self.side_image_pack = SideImagePack()
         self.load_pack()
         self.set_rect()
@@ -126,7 +126,7 @@ class SideImageMapCard(BaseMapCard):
             self.set_caption(f"${self.price}", self.width / 6, self.width / 2, self.height * 7 / 8)
 
     def update(self, *args, **kwargs) -> None:
-        if self.new_player_on and self.renderer.current_player in self.players:
+        if SideImageMapCard.new_player_on and self.renderer.current_player in self.players:
             if self.side_image_type == "station":
                 m = ChanceModal(self.renderer)
                 self.renderer.add_texture(m)
@@ -142,4 +142,4 @@ class SideImageMapCard(BaseMapCard):
             elif self.side_image_type == "pay":
                 m = ChanceModal(self.renderer)
                 self.renderer.add_texture(m)
-            self.new_player_on = False
+            SideImageMapCard.new_player_on = False

@@ -8,4 +8,4 @@ class PayToOwnerMapCardModal(GenericMapCardModal):
         self.ok_button_action_class = GenericMapCardPayToOwnerAction
         self.add([self.get_ok_button()])
 
-        self.set_header(f"Имотът принадлежи на {current_player.name} и престоят в него струва {map_card_state.calculate_current_price(current_player)} $")
+        self.set_header(f"Имотът принадлежи на {current_player.name} и престоят в него струва {map_card_state.calculate_current_price()} $")

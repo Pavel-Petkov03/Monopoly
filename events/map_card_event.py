@@ -11,4 +11,4 @@ class MapCardEvent(Event):
 
     @staticmethod
     def execute(texture):
-        texture.new_player_on = True
+        texture.set_new_player_on()

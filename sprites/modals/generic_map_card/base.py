@@ -5,7 +5,7 @@ from sprites.map_card import GenericMapCard
 
 
 class GenericMapCardModal(Modal):
-    def __init__(self, map_card_state, renderer_state, current_player):
+    def __init__(self, renderer_state, map_card_state, current_player):
         self.inner_rect_color = map_card_state.color
         self.inner_rect_data = map_card_state.price_dict
         self.map_card_name = map_card_state.caption

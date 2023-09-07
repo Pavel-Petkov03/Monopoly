@@ -7,3 +7,4 @@ class RemoveModalAction(GenericMapCardAction):
 
     def execute(self):
         self.render.remove_texture()
+        super().execute()

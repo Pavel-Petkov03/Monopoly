@@ -29,5 +29,6 @@ class Game:
             pygame.display.set_caption(f"Monopoly fps:{self.timer.get_fps()}")
 
 
-game = Game()
-game.run()
+if __name__ == "__main__":
+    game = Game()
+    game.run()

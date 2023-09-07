@@ -20,12 +20,18 @@ class BoardRenderer(Renderer):
             # player4 : player4.piece_image
         }
         self.players = deque([player1, player2])
-        self.current_player = self.players[0]
         self.dices = Dices(self)
         self.textures = [
             self.board,
             self.dices
         ]
+
+    @property
+    def current_player(self):
+        return self.players[0]
+
+    def make_shift(self):
+        self.players.append(self.players.popleft())
 
 
 

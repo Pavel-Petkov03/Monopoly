@@ -8,4 +8,4 @@ class GenericMapCardAction(Action):
         self.current_player = current_player
 
     def execute(self):
-        pass
+        self.render.make_shift()

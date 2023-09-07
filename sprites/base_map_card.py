@@ -7,6 +7,7 @@ from sprites.texture import Texture
 class BaseMapCard(Texture):
     width = 0
     height = 0
+    new_player_on = False
 
     def __init__(self, x, y, color=None, caption=None, inside_image_path=None, price=None, rotation=None,
                  price_dict=None, neighborhood=None, house_price=None, side_image_type=None, rect_type=None):
@@ -36,6 +37,11 @@ class BaseMapCard(Texture):
         self.event_list = [
             MapCardEvent
         ]
+
+    @classmethod
+    def set_new_player_on(cls):
+        cls.new_player_on = True
+
 
     def get_circle_pos(self):
         if self.rotation == 0:

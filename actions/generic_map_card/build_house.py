@@ -10,3 +10,4 @@ class GenericMapCardBuildHouseOnOwnerPropertyAction(GenericMapCardAction):
         self.current_player.money -= money_to_pay
         self.map_card_state.houses += 1
         self.render.remove_texture()
+        super().execute()

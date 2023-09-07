@@ -7,12 +7,13 @@ from events.custom_types import ON_BOX, ON_PLAYER_MOVEMENT
 class MovePlayer(Action):
     def __init__(self, render, dices):
         super().__init__(render)
-        self.current_player = self.render.current_player
+        self.current_player = None
         self.board = self.render.board
         self.board_index = None
         self.dices = dices
         self.on = False
         self.forward = True
+        self.going_fixed_place = True
 
     def execute(self):
         if self.on:
@@ -58,6 +59,7 @@ class MovePlayer(Action):
         else:
             index -= self.current_player.board_index
         self.dices.thrown = index
+        self.going_fixed_place = True
         pygame.event.post(pygame.event.Event(ON_PLAYER_MOVEMENT))
 
     def end_index(self, index):
@@ -80,4 +82,5 @@ class MovePlayer(Action):
 
     def start(self):
         self.on = True
+        self.current_player = self.render.current_player
         self.board_index = self.current_player.board_index
