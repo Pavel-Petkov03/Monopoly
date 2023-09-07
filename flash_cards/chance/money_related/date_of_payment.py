@@ -1,7 +1,8 @@
-from flash_cards.chance.base import ChanceCard
+
+from flash_cards.chance.money_related.base import MoneyRelatedChanceCard
 
 
-class DateOfPaymentProfit(ChanceCard):
+class DateOfPaymentProfit(MoneyRelatedChanceCard):
     def __init__(self):
         super().__init__("ПАДЕЖ НА ЗАЕМА ВИ ЗА ИМОТ\n"
                          " 150")

@@ -1,7 +1,8 @@
-from flash_cards.treasure.base import TreasureCard
+
+from flash_cards.treasure.money_related.base import MoneyRelatedTreasureCard
 
 
-class BeautyTax(TreasureCard):
+class BeautyTax(MoneyRelatedTreasureCard):
     def __init__(self):
         super().__init__("ПЕЧЕЛИТЕ КОНКУРС ПО КРАСОТА И ПОЛУЧАВАТЕ 10")
 

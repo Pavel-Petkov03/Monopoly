@@ -2,4 +2,4 @@ from flash_cards.base import Card
 
 
 class ChanceCard(Card):
-    pass
+    header_name = "Шанс"

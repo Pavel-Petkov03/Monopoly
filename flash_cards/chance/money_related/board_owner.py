@@ -1,7 +1,8 @@
-from flash_cards.chance.base import ChanceCard
+
+from flash_cards.chance.money_related.base import MoneyRelatedChanceCard
 
 
-class BordOwnerPayment(ChanceCard):
+class BordOwnerPayment(MoneyRelatedChanceCard):
     def __init__(self):
         super().__init__("ИЗБРАН СТЕ ЗА ПРЕДСТЕДАТЕЛ НА БОРДА ПЛАТЕТЕ НА ВСЕКИ ИГРАЧ ПО 50")
 

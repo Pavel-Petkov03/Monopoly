@@ -45,7 +45,6 @@ class GenericMapCard(Texture):
 class TreasureAndChanceCardDesign(Texture):
     def __init__(self, width, height, side_image_type, holder):
         super().__init__(width, height)
-
         self.surface.fill("white")
         x = self.width / 17
         pygame.draw.line(self.surface, "black", (x, x), (self.width - x, x))
@@ -54,6 +53,7 @@ class TreasureAndChanceCardDesign(Texture):
         pygame.draw.line(self.surface, "black", (self.width - x, self.height - x), (x, self.height - x))
         padding = 2 * x
         self.create_text_and_blit(self.surface, side_image_type, 30, "black", (self.width / 2, padding))
+
 
 
 class SideImageMapCard(Texture):

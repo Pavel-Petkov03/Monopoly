@@ -1,7 +1,8 @@
-from flash_cards.chance.base import ChanceCard
+
+from flash_cards.chance.money_related.base import MoneyRelatedChanceCard
 
 
-class PayForBuildings(ChanceCard):
+class PayForBuildings(MoneyRelatedChanceCard):
     def __init__(self):
         super().__init__("ОСНОВЕН РЕМОНТ НА ВСИЧКИТЕ ВИ СГРАДИ\n"
                          "ЗА ВСЯКА КЪЩА ПЛАТЕТЕ ПО 25\n"

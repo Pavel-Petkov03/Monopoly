@@ -1,7 +1,8 @@
-from flash_cards.treasure.base import TreasureCard
+
+from flash_cards.treasure.money_related.base import MoneyRelatedTreasureCard
 
 
-class SellShare(TreasureCard):
+class SellShare(MoneyRelatedTreasureCard):
     def __init__(self):
         super().__init__("ПРОДАВАТЕ АКЦИИ И ПОЛУЧАВАТЕ 50")
 

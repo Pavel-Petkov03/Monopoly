@@ -1,6 +1,8 @@
-from flash_cards.chance.base import ChanceCard
 
-class GoToPrison(ChanceCard):
+from flash_cards.chance.go_to.base import GoToChanceCard
+
+
+class GoToPrison(GoToChanceCard):
     def __init__(self):
         super().__init__("ОТИВАТЕ ДИРЕКТНО В ЗАТВОРА.НЕ ПРЕМИНАВАТЕ ПРЕЗ НАЧАЛО И НЕ ПОЛУЧАВАТЕ 200")
 

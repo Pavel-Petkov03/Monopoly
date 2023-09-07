@@ -1,7 +1,8 @@
-from flash_cards.chance.base import ChanceCard
+
+from flash_cards.chance.money_related.base import MoneyRelatedChanceCard
 
 
-class FineForFastDriving(ChanceCard):
+class FineForFastDriving(MoneyRelatedChanceCard):
     def __init__(self):
         super().__init__("ГЛОБА ЗА ПРЕВИШЕНА СКОРОСТ 15")
 

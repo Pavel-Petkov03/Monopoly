@@ -1,7 +1,8 @@
-from flash_cards.treasure.base import TreasureCard
+
+from flash_cards.treasure.money_related.base import MoneyRelatedTreasureCard
 
 
-class PaySchoolFines(TreasureCard):
+class PaySchoolFines(MoneyRelatedTreasureCard):
     def __init__(self):
         super().__init__("ПЛАТЕТЕ УЧИЛИЩНИ ТАКСИ 50")
 

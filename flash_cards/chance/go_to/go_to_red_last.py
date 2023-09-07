@@ -1,7 +1,8 @@
 from flash_cards.chance.base import ChanceCard
+from flash_cards.chance.go_to.base import GoToChanceCard
 
 
-class GoToRedLast(ChanceCard):
+class GoToRedLast(GoToChanceCard):
     def __init__(self):
         super().__init__("ПРОДЪЛЖЕТЕ ДО УЧЛИЦА ОБОРИЩЕ\n"
                          "АКО ПРЕМИНЕТЕ ПРЕЗ НАЧАЛОТО ПОЛУЧАВАТЕ 200"

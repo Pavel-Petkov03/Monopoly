@@ -1,7 +1,8 @@
-from flash_cards.treasure.base import TreasureCard
+
+from flash_cards.treasure.money_related.base import MoneyRelatedTreasureCard
 
 
-class UnpaidTaxesProfit(TreasureCard):
+class UnpaidTaxesProfit(MoneyRelatedTreasureCard):
     def __init__(self):
         super().__init__("ВРЪЩАТ ВИ НАДПЛАТЕНИ ДАНЪЦИ ПОЛУЧАВАТЕ 20")
 

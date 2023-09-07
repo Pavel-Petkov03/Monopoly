@@ -1,7 +1,8 @@
-from flash_cards.treasure.base import TreasureCard
+
+from flash_cards.treasure.money_related.base import MoneyRelatedTreasureCard
 
 
-class ConsultingProfit(TreasureCard):
+class ConsultingProfit(MoneyRelatedTreasureCard):
     def __init__(self):
         super().__init__("ПОЛУЧАВАТЕ ХОНОРОР ЗА КОНСУЛТАНТ 25")
 

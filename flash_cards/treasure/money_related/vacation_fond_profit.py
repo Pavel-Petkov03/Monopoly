@@ -1,7 +1,8 @@
-from flash_cards.treasure.base import TreasureCard
+
+from flash_cards.treasure.money_related.base import MoneyRelatedTreasureCard
 
 
-class VacationFondProfit(TreasureCard):
+class VacationFondProfit(MoneyRelatedTreasureCard):
     def __init__(self):
         super().__init__("ПАДЕЖ НА ВАКАНЦИОНЕН ФОНД ПОЛУЧАВАТЕ 100")
 

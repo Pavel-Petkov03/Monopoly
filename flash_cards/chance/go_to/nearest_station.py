@@ -1,7 +1,8 @@
-from flash_cards.chance.base import ChanceCard
+
+from flash_cards.chance.go_to.base import GoToChanceCard
 
 
-class GoToNearestStation(ChanceCard):
+class GoToNearestStation(GoToChanceCard):
     def __init__(self):
         super().__init__(
             "ПРОДЪЛЖЕТЕ ДО НАЙ - БЛИЗКАТА ГАРА\n"

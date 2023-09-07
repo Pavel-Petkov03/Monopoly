@@ -1,6 +1,7 @@
-from flash_cards.chance.base import ChanceCard
+from flash_cards.chance.go_to.base import GoToChanceCard
 
-class GoToFirstStation(ChanceCard):
+
+class GoToFirstStation(GoToChanceCard):
     def __init__(self):
         super().__init__("ПРОДЪЛЖЕТЕ ДО ГАРА СОФИЯ\n"
                          "АКО ПРЕМИНЕТЕ ПРЕЗ НАЧАЛОТО ПОЛУЧАВАТЕ 200"
