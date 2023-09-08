@@ -1,6 +1,7 @@
 from actions.side_map_card.chance_and_treasure import ChanceAction, TreasureAction
 from flash_cards.decks import ChanceHolder, TreasureHolder
 from sprites.button import Button
+from sprites.map_card import TreasureAndChanceCardDesign
 from sprites.modals.base_modal import Modal
 
 
@@ -10,8 +11,16 @@ class BaseChanceAndTreasureModal(Modal):
     def __init__(self, renderer):
         super().__init__()
         self.renderer = renderer
-        self.set_header(self.ok_button_action_class.holder.get_card().header)
-        self.add([self.get_ok_button()])
+        self.card = TreasureAndChanceCardDesign(
+            self.width - 2 * self.x / 2,
+            self.height - 2 * self.y / 4,
+            self.get_holder(),
+            (self.x / 2, self.y / 4)
+        )
+        self.add([self.card , self.get_ok_button()])
+
+    def get_holder(self):
+        return self.ok_button_action_class.holder
 
     def get_ok_button(self):
         return Button(

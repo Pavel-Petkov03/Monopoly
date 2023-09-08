@@ -1,3 +1,5 @@
+import functools
+
 import pygame
 from events.custom_types import ON_PLAYER_MOVEMENT
 
@@ -23,6 +25,7 @@ class AnimationFrame:
         self.__end = self.__start + self.delay
         self.animation_on = True
 
+
     def clean_up_function(self):
         pass
 
@@ -46,5 +49,7 @@ class DiceAnimationFrame(AnimationFrame):
         self.dices_object.thrown = thrown
         pygame.event.post(pygame.event.Event(ON_PLAYER_MOVEMENT))
 
-
-
+    def start(self):
+        super().start()
+        dice_rolling_sound = pygame.mixer.Sound("sounds/dice_rolling_sound.mp3")
+        pygame.mixer.Sound.play(dice_rolling_sound)

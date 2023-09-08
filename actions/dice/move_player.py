@@ -1,12 +1,13 @@
 import pygame
 
 from actions.base_action import Action
+from animations.animation_frame import AnimationFrame
 from events.custom_types import ON_BOX, ON_PLAYER_MOVEMENT
 
 
 class MovePlayer(Action):
-    def __init__(self, render, dices):
-        super().__init__(render)
+    def __init__(self, renderer, dices):
+        super().__init__(renderer)
         self.current_player = None
         self.board = self.render.board
         self.board_index = None
@@ -14,7 +15,6 @@ class MovePlayer(Action):
         self.on = False
         self.forward = True
         self.going_fixed_place = True
-
     def execute(self):
         if self.on:
             if (not self.current_player.in_prison) or self.dices.dice_equal_sign():

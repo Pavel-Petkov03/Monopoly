@@ -30,7 +30,7 @@ class TextureMixin:
         for word in words:
             i += 1
             s += f" {word}"
-            if i == 10 or len(s) >= 30:
+            if i == 6 or len(s) >= 20:
                 f.append(s)
                 s = ""
                 i = 0
