@@ -17,8 +17,9 @@ class AnimationFrame:
                 self.__start = pygame.time.get_ticks()
                 self.on_animation_func()
             else:
-                self.clean_up_function()
                 self.animation_on = False
+                self.clean_up_function()
+
 
     def start(self):
         self.__start = pygame.time.get_ticks()

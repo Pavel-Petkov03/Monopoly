@@ -6,9 +6,9 @@ class BaseChanceAndTreasureAction(Action):
     holder = None
 
     def execute(self):
-        self.holder.get_card().exec(self.render)
+        self.holder.get_card().exec(self.renderer)
         self.holder.make_shift()
-        self.render.remove_texture()
+        self.renderer.remove_texture()
 
 
 class ChanceAction(BaseChanceAndTreasureAction):

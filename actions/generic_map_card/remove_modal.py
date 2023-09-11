@@ -6,5 +6,5 @@ class RemoveModalAction(GenericMapCardAction):
         super().__init__(renderer, map_card_state, current_player)
 
     def execute(self):
-        self.render.remove_texture()
+        self.renderer.remove_texture()
         super().execute()
