@@ -7,6 +7,6 @@ class GoToPrison(GoToChanceCard):
         super().__init__("ОТИВАТЕ ДИРЕКТНО В ЗАТВОРА.НЕ ПРЕМИНАВАТЕ ПРЕЗ НАЧАЛО И НЕ ПОЛУЧАВАТЕ 200")
 
     def exec(self, renderer):
-        renderer.dices.move_player_animation.forward = False
+        renderer.dices.move_player_animation.animation_frame.forward = False
         renderer.current_player.in_prison = True
         renderer.dices.move_player_animation.get_fixed_place(10)

@@ -85,7 +85,6 @@ class MovePlayer(Action):
         self.dices = dices
         self.current_player = None
         self.animation_frame = MovePlayerAnimationFrame(250, renderer, dices)
-        self.going_fixed_place = True
 
     def execute(self):
         self.animation_frame.execute()
@@ -105,7 +104,6 @@ class MovePlayer(Action):
         else:
             index -= self.current_player.board_index
         self.dices.thrown = index
-        self.going_fixed_place = True
         pygame.event.post(pygame.event.Event(ON_PLAYER_MOVEMENT))
 
     def end_index(self, index):
