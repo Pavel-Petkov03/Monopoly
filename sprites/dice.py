@@ -3,7 +3,7 @@ import os
 import pygame
 
 from actions.dice.move_player import MovePlayer
-from animations.animation_frame import DiceAnimationFrame
+from animations.animation_frame import DiceAnimationFrameMovement
 from animations.dice_animation import DiceAnimation
 from events.dice_click import DiceClickEvent, PlayerMovementEvent
 from sprites.texture import Texture
@@ -48,15 +48,15 @@ class Dice(Texture):
 
 class Dices(Texture):
 
-    def __init__(self, render_state):
+    def __init__(self, renderer):
         super().__init__(screen_rect_size / 12, screen_rect_size / 24)
         dice1 = Dice(screen_rect_size / 2, screen_rect_size / 2)
         dice2 = Dice(screen_rect_size / 2 + dice1.width, screen_rect_size / 2)
         self.thrown = 0
-        self.render_state = render_state
+        self.renderer = renderer
         self.dices = (dice1, dice2)
-        self.dice_animation_frame = DiceAnimationFrame(1000, self)
-        self.move_player_animation = MovePlayer(render_state, self)
+        self.dice_animation_frame = DiceAnimationFrameMovement(1000, self)
+        self.move_player_animation = MovePlayer(renderer, self)
         self.event_list = [
             DiceClickEvent,
             PlayerMovementEvent

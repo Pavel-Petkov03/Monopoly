@@ -17,7 +17,7 @@ class BaseChanceAndTreasureModal(Modal):
             self.get_holder(),
             (self.x / 2, self.y / 4)
         )
-        self.add([self.card , self.get_ok_button()])
+        self.add([self.card, self.get_ok_button()])
 
     def get_holder(self):
         return self.ok_button_action_class.holder

@@ -12,6 +12,11 @@ class GenericMapCard(Texture):
         self.map_card_data = map_card_data
         self.blit_pos = blit_pos
         self.surface.fill("white")
+        x = self.width / 17
+        pygame.draw.line(self.surface, "black", (x, x), (self.width - x, x))
+        pygame.draw.line(self.surface, "black", (x, x), (x, self.height - x))
+        pygame.draw.line(self.surface, "black", (self.width - x, x), (self.width - x, self.height - x))
+        pygame.draw.line(self.surface, "black", (self.width - x, self.height - x), (x, self.height - x))
         self.inner_fill_surface = pygame.Surface((2 / 3 * self.width, 1 / 5 * self.height))
         self.inner_fill_surface.fill(self.inner_surface_fill_color)
         self.blit_text()
@@ -102,17 +107,6 @@ class SideImageMapCard(Texture):
                                       (self.width * 3 / 4, self.padding_counter))
             self.padding_counter += self.surface.get_height() / 20
 
-    def chance(self):
-        self.padding_counter += self.surface.get_height() / 5
-        card = self.chance_holder.get_card()
-        self.create_text_and_blit(self.surface, card.header_message, 25, (0, 0, 0),
-                                  (self.surface.get_width() / 2, self.padding_counter))
-
-    def treasure(self):
-        self.padding_counter += self.surface.get_height() / 5
-        card = self.treasure_holder.get_card()
-        self.create_text_and_blit(self.surface, card.header_message, 25, (0, 0, 0),
-                                  (self.surface.get_width() / 2, self.padding_counter))
 
     def public_services(self):
         pass

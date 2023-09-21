@@ -1,3 +1,6 @@
+from utils import SingletonClass
+
+
 class Renderer:
     def __init__(self):
         self.textures = []
