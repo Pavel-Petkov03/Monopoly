@@ -49,11 +49,11 @@ class GenericMapCard(BaseMapCard):
                 current_x += self.house_image.get_width()
 
     def get_house_image(self):
-        image = pygame.image.load("images/board/house.png")
+        image = pygame.image.load("images/board/inner/house.png")
         return pygame.transform.scale(image, (self.top_inner_rect.width / 4, self.top_inner_rect.height / 2))
 
     def get_hotel_image(self):
-        image = pygame.image.load("images/board/hotel.png")
+        image = pygame.image.load("images/board/inner/hotel.png")
         return pygame.transform.scale(image, (self.top_inner_rect.width / 2, self.top_inner_rect.height))
 
     def update(self, *args, **kwargs) -> None:

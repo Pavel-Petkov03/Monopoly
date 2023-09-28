@@ -61,7 +61,7 @@ class BaseMapCard(Texture):
 
     def load_inside_image(self):
         if self.inside_image_path:
-            self.inside_image_picture = pygame.image.load(f"images/board/{self.inside_image_path}").convert_alpha()
+            self.inside_image_picture = pygame.image.load(f"images/board/inner/{self.inside_image_path}").convert_alpha()
 
     def set_rect(self):
         self.image.fill("white")

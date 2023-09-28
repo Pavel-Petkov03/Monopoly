@@ -9,8 +9,7 @@ class Game:
         pygame.init()
         self.timer = Timer()
         self.renderer = BoardRenderer([])
-        self.image = pygame.image.load("images/board/background.jpg").convert_alpha()
-        self.image = pygame.transform.scale(self.image, (screen_rect_size, screen_rect_size)).convert_alpha()
+
 
     def run(self):
         running = True
@@ -20,10 +19,7 @@ class Game:
                     running = False
                 for texture in self.renderer.textures:
                     texture.exec_events(event_type=event.type)
-            screen.blit(self.image, (0, 0))
-            for texture in self.renderer.textures:
-                texture.blit(screen)
-                texture.update()
+            self.renderer.blit(screen)
             pygame.display.flip()
             self.timer.set_fps()
             pygame.display.set_caption(f"Monopoly fps:{self.timer.get_fps()}")

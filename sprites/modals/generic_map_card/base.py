@@ -2,6 +2,7 @@ from actions.generic_map_card.remove_modal import RemoveModalAction
 from sprites.modals.base_modal import Modal
 from sprites.button import Button
 from sprites.map_card import GenericMapCard
+from vars import board_screen_x, board_screen_y
 
 
 class GenericMapCardModal(Modal):
@@ -35,8 +36,8 @@ class GenericMapCardModal(Modal):
             text_color="black",
             blit_pos=(0, self.surface.get_height() - self.height / 12),
             hover_color="yellow",
-            inherit_x=self.x,
-            inherit_y=self.y,
+            inherit_x=self.x + board_screen_x,
+            inherit_y=self.y + board_screen_y,
             action_class=self.yes_button_action_class(self.renderer_state, self.map_card_state, self.current_player)
         )
 
@@ -49,8 +50,8 @@ class GenericMapCardModal(Modal):
             text_color="black",
             blit_pos=(self.surface.get_width() - self.width / 4, self.surface.get_height() - self.height / 12),
             hover_color="yellow",
-            inherit_x=self.x,
-            inherit_y=self.y,
+            inherit_x=self.x + board_screen_x,
+            inherit_y=self.y + board_screen_y,
             action_class=RemoveModalAction(self.renderer_state, self.map_card_state, self.current_player)
         )
 
@@ -63,8 +64,8 @@ class GenericMapCardModal(Modal):
             text_color="black",
             blit_pos=(self.surface.get_width() / 2 - self.width / 4 / 2, self.surface.get_height() - self.height / 12),
             hover_color="yellow",
-            inherit_x=self.x,
-            inherit_y=self.y,
+            inherit_x=self.x + board_screen_x,
+            inherit_y=self.y + board_screen_y,
             action_class=self.ok_button_action_class(self.renderer_state, self.map_card_state, self.current_player)
         )
 
@@ -72,15 +73,3 @@ class GenericMapCardModal(Modal):
         for sprite in self.sprites():
             sprite.blit(self.surface)
         super().blit(window)
-
-
-
-
-
-
-
-
-
-
-
-

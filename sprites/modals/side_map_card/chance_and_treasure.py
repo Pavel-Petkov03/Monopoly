@@ -3,6 +3,7 @@ from flash_cards.decks import ChanceHolder, TreasureHolder
 from sprites.button import Button
 from sprites.map_card import TreasureAndChanceCardDesign
 from sprites.modals.base_modal import Modal
+from vars import board_screen_x, board_screen_y
 
 
 class BaseChanceAndTreasureModal(Modal):
@@ -31,8 +32,8 @@ class BaseChanceAndTreasureModal(Modal):
             text_color="black",
             blit_pos=(self.surface.get_width() / 2 - self.width / 4 / 2, self.surface.get_height() - self.height / 12),
             hover_color="yellow",
-            inherit_x=self.x,
-            inherit_y=self.y,
+            inherit_x=self.x + board_screen_x,
+            inherit_y=self.y + board_screen_y,
             action_class=self.ok_button_action_class(self.renderer)
         )
 

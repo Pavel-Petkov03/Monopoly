@@ -7,22 +7,23 @@ from animations.animation_frame import DiceAnimationFrameMovement
 from animations.dice_animation import DiceAnimation
 from events.dice_click import DiceClickEvent, PlayerMovementEvent
 from sprites.texture import Texture
-from vars import screen_rect_size, BASE_DIR
+from vars import screen_rect_size, BASE_DIR, board_screen_x, board_screen_y
 
 
 class Dice(Texture):
+
     ANIMATION_IMAGES = [os.path.join(BASE_DIR, "images", "dice", "animation", f"{i}.png") for i in range(1, 7)]
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, renderer):
         super().__init__(screen_rect_size / 24, screen_rect_size / 24)
         self.x = x
         self.y = y
         self.animation_images = self.load_images(self.ANIMATION_IMAGES)
-        self.rect = pygame.Rect(x, y, self.width, self.height)
+        self.rect = pygame.Rect(self.x + board_screen_x, self.y + board_screen_y, self.width, self.height)
         self.surface.fill("white")
         self.current_image = self.animation_images[1]
         self.calculated_dice = None
-        self.dice_animation_class = DiceAnimation(x, y, self.width, self.height)
+        self.dice_animation_class = DiceAnimation(self.x, self.y,  self.width, self.height, renderer)
 
     def load_images(self, location_array):
         res = []
@@ -50,10 +51,10 @@ class Dices(Texture):
 
     def __init__(self, renderer):
         super().__init__(screen_rect_size / 12, screen_rect_size / 24)
-        dice1 = Dice(screen_rect_size / 2, screen_rect_size / 2)
-        dice2 = Dice(screen_rect_size / 2 + dice1.width, screen_rect_size / 2)
-        self.thrown = 0
         self.renderer = renderer
+        dice1 = Dice(screen_rect_size / 2, screen_rect_size / 2,renderer)
+        dice2 = Dice(screen_rect_size / 2 + dice1.width, screen_rect_size / 2, renderer)
+        self.thrown = 0
         self.dices = (dice1, dice2)
         self.dice_animation_frame = DiceAnimationFrameMovement(1000, self)
         self.move_player_animation = MovePlayer(renderer, self)

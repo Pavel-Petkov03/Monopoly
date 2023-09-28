@@ -1,7 +1,7 @@
 import pygame
 
 from sprites.texture import TextureGroup
-from vars import screen_rect_size
+from vars import screen_rect_size, size, w
 
 
 class Modal(TextureGroup):

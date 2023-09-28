@@ -69,12 +69,13 @@ class DiceAnimation(Rotation):
         (6, 7)
     )
 
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height, board_renderer):
         super().__init__()
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.board_renderer = board_renderer
         self.points = [np.matrix(ar) for ar in self.vertecies]
         self.projected_points = [[n, n] for n in range(len(self.points))]
         self.projection_matrix = [[1, 0, 0], [0, 1, 0], [0, 0, 0]]
@@ -102,11 +103,11 @@ class DiceAnimation(Rotation):
     def draw_polygon(self):
         for i, quad in enumerate(self.quads):
             all_projected_points = [self.projected_points[i] for i in quad]
-            pygame.draw.polygon(screen, "white", all_projected_points)
+            pygame.draw.polygon(self.board_renderer.screen, "white", all_projected_points)
 
     def draw_edges(self):
         for edge in self.edges:
-            pygame.draw.line(screen,
+            pygame.draw.line(self.board_renderer.screen,
                              "black",
                              (self.projected_points[edge[0]][0], self.projected_points[edge[0]][1]),
                              (self.projected_points[edge[1]][0], self.projected_points[edge[1]][1])
